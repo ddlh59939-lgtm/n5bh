@@ -17,15 +17,16 @@ font-family:'Orbitron',sans-serif;
 overflow:hidden;
 }
 
-/* ===== MATRIX NUMBERS BACKGROUND ===== */
+/* ===== MATRIX (اخف من قبل) ===== */
 canvas{
 position:fixed;
 top:0;
 left:0;
 z-index:0;
+opacity:0.15; /* خففناها */
 }
 
-/* ===== INTRO CONTENT ===== */
+/* ===== INTRO ===== */
 #intro{
 position:fixed;
 inset:0;
@@ -35,38 +36,15 @@ justify-content:center;
 align-items:center;
 z-index:2;
 text-align:center;
+transition:1s ease;
 }
 
 .logo{
-font-size:90px;
+font-size:85px;
 letter-spacing:15px;
-color:#fff;
-text-shadow:
-0 0 10px #fff,
-0 0 20px #ccc,
-0 0 40px #aaa;
-animation:glow 2s infinite alternate;
+text-shadow:0 0 20px #fff;
 }
 
-@keyframes glow{
-from{ text-shadow:0 0 10px #fff;}
-to{ text-shadow:0 0 60px #fff;}
-}
-
-/* Warning Flash */
-.warning{
-margin-top:40px;
-font-size:13px;
-opacity:.8;
-animation:flash 1.5s infinite;
-}
-
-@keyframes flash{
-0%,100%{opacity:.3}
-50%{opacity:1}
-}
-
-/* Button */
 button{
 margin-top:30px;
 padding:12px 50px;
@@ -82,91 +60,33 @@ background:#fff;
 color:#000;
 }
 
-/* MAIN SITE */
+/* ===== MAIN PAGE ===== */
 #main{
 display:none;
+opacity:0;
+transition:1.5s ease;
 height:100vh;
 background:#000;
+padding:40px;
+}
+
+/* Top Right Link */
+.top-link{
+position:absolute;
+top:20px;
+right:30px;
+font-size:14px;
+cursor:pointer;
+color:#aaa;
+transition:.3s;
+}
+
+.top-link:hover{
 color:#fff;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
+text-shadow:0 0 10px #fff;
 }
-</style>
-</head>
 
-<body>
-
-<!-- MUSIC -->
-<audio id="music" loop>
-<source src="PUT_YOUR_MP3_LINK_HERE" type="audio/mp3">
-</audio>
-
-<canvas id="matrix"></canvas>
-
-<div id="intro">
-<div class="logo">N5BH</div>
-
-<button onclick="enterSite()">ENTER</button>
-
-<div class="warning">
-⚠ WARNING <br>
-هذا الموقع غير ضار <br>
-This website is harmless
-</div>
-</div>
-
-<div id="main">
-<h1>Welcome to N5BH</h1>
-<p>Official Portal</p>
-</div>
-
-<script>
-/* ===== MATRIX EFFECT WHITE ===== */
-var canvas=document.getElementById("matrix");
-var ctx=canvas.getContext("2d");
-
-canvas.height=window.innerHeight;
-canvas.width=window.innerWidth;
-
-var letters="N5BH0123456789";
-letters=letters.split("");
-
-var fontSize=16;
-var columns=canvas.width/fontSize;
-var drops=[];
-
-for(var x=0;x<columns;x++)
-drops[x]=1;
-
-function draw(){
-ctx.fillStyle="rgba(0,0,0,0.05)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="#ffffff";
-ctx.font=fontSize+"px monospace";
-
-for(var i=0;i<drops.length;i++){
-var text=letters[Math.floor(Math.random()*letters.length)];
-ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-
-if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
-drops[i]=0;
-
-drops[i]++;
-}
-}
-setInterval(draw,35);
-
-/* ENTER FUNCTION */
-function enterSite(){
-document.getElementById("intro").style.display="none";
-document.getElementById("main").style.display="flex";
-document.getElementById("music").play();
-document.body.style.overflow="auto";
-}
-</script>
-
-</body>
-</html>
+/* Names List */
+.names{
+margin-top:120px;
+text-ali
