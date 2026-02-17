@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>N5BH SYSTEM</title>
+<title>N5BH</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
@@ -17,16 +17,16 @@ font-family:'Orbitron',sans-serif;
 overflow:hidden;
 }
 
-/* ===== MATRIX (اخف من قبل) ===== */
+/* MATRIX BACKGROUND */
 canvas{
 position:fixed;
 top:0;
 left:0;
 z-index:0;
-opacity:0.15; /* خففناها */
+opacity:0.08;
 }
 
-/* ===== INTRO ===== */
+/* INTRO */
 #intro{
 position:fixed;
 inset:0;
@@ -35,14 +35,19 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 z-index:2;
-text-align:center;
-transition:1s ease;
+transition:1s;
 }
 
 .logo{
-font-size:85px;
+font-size:90px;
 letter-spacing:15px;
-text-shadow:0 0 20px #fff;
+text-shadow:0 0 30px #fff;
+animation:glitch 2s infinite;
+}
+
+@keyframes glitch{
+0%,100%{text-shadow:0 0 25px #fff;}
+50%{text-shadow:2px 0 35px #aaa,-2px 0 35px #fff;}
 }
 
 button{
@@ -60,33 +65,229 @@ background:#fff;
 color:#000;
 }
 
-/* ===== MAIN PAGE ===== */
+/* MAIN PAGE */
 #main{
 display:none;
 opacity:0;
-transition:1.5s ease;
+transition:1.5s;
 height:100vh;
-background:#000;
-padding:40px;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
 }
 
-/* Top Right Link */
+/* TOP RIGHT LINK */
 .top-link{
 position:absolute;
 top:20px;
 right:30px;
-font-size:14px;
 cursor:pointer;
 color:#aaa;
-transition:.3s;
+font-size:14px;
 }
 
 .top-link:hover{
 color:#fff;
-text-shadow:0 0 10px #fff;
+text-shadow:0 0 15px #fff;
 }
 
-/* Names List */
-.names{
-margin-top:120px;
-text-ali
+/* MEMBER CARD */
+.member-card{
+position:relative;
+text-align:center;
+cursor:pointer;
+}
+
+.member-card img{
+width:280px;
+height:350px;
+object-fit:cover;
+border-radius:15px;
+box-shadow:0 0 40px rgba(255,255,255,0.4);
+transition:.4s;
+}
+
+.member-card:hover img{
+transform:scale(1.05);
+box-shadow:0 0 70px #fff;
+}
+
+.crown{
+position:absolute;
+top:-30px;
+left:50%;
+transform:translateX(-50%);
+font-size:35px;
+animation:spin 8s linear infinite;
+}
+
+@keyframes spin{
+from{transform:translateX(-50%) rotate(0deg);}
+to{transform:translateX(-50%) rotate(360deg);}
+}
+
+.member-card h2{
+margin-top:15px;
+}
+
+.role{
+opacity:.7;
+font-size:14px;
+}
+
+.title{
+margin-top:5px;
+font-size:12px;
+opacity:.6;
+}
+
+/* POPUP */
+#popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.95);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:40px;
+z-index:9999;
+animation:fadeIn .5s;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:scale(0.95);}
+to{opacity:1;transform:scale(1);}
+}
+
+/* FLASH SHOCK */
+.flash{
+position:fixed;
+inset:0;
+background:#fff;
+opacity:0;
+pointer-events:none;
+}
+
+.shock{
+animation:shock .4s ease;
+}
+
+@keyframes shock{
+0%{opacity:1}
+100%{opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+<source src="song.mp3" type="audio/mp3">
+</audio>
+
+<!-- CLICK SOUND -->
+<audio id="clickSound">
+<source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mp3">
+</audio>
+
+<canvas id="matrix"></canvas>
+
+<div id="intro">
+<div class="logo">N5BH</div>
+<button onclick="enterSite()">ENTER</button>
+</div>
+
+<div id="main">
+
+<div class="top-link" onclick="window.open('https://discord.gg/4VuMPVrXwR','_blank')">
+Server N5BH
+</div>
+
+<div class="member-card" onclick="openProfile()">
+<div class="crown">👑</div>
+<img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
+<h2>ASSIRI</h2>
+<div class="role">(Owner)</div>
+<div class="title">The Core of N5BH</div>
+</div>
+
+</div>
+
+<div id="popup">
+<img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg" style="width:320px;border-radius:15px;margin-bottom:20px;box-shadow:0 0 50px #fff;">
+<h2>ASSIRI</h2>
+<h4>(Owner)</h4>
+<p style="max-width:700px;line-height:1.8;margin-top:15px;">
+A dominant force who commands elite power and stands beside the strongest companions.  
+A master strategist who bends outcomes with only a few precise words.  
+Professional, calculated, always steps ahead.  
+A visionary leader shaping realities with confidence and intelligence.  
+The backbone of N5BH — respected, feared, admired.
+</p>
+<br>
+<a href="https://www.tiktok.com/@0w.fh?is_from_webapp=1&sender_device=pc" target="_blank">
+<button>Visit TikTok</button>
+</a>
+<br><br>
+<button onclick="closeProfile()">Close</button>
+</div>
+
+<div class="flash" id="flash"></div>
+
+<script>
+/* MATRIX EFFECT */
+var canvas=document.getElementById("matrix");
+var ctx=canvas.getContext("2d");
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
+
+var letters="N5BH0123456789".split("");
+var fontSize=16;
+var columns=canvas.width/fontSize;
+var drops=[];
+for(var x=0;x<columns;x++) drops[x]=1;
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="#ffffff";
+ctx.font=fontSize+"px monospace";
+for(var i=0;i<drops.length;i++){
+var text=letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975) drops[i]=0;
+drops[i]++;
+}
+}
+setInterval(draw,40);
+
+/* ENTER */
+function enterSite(){
+document.getElementById("flash").classList.add("shock");
+document.getElementById("intro").style.opacity="0";
+setTimeout(()=>{
+document.getElementById("intro").style.display="none";
+document.getElementById("main").style.display="flex";
+setTimeout(()=>{document.getElementById("main").style.opacity="1";},100);
+document.getElementById("music").play();
+document.body.style.overflow="auto";
+},800);
+}
+
+/* PROFILE */
+function openProfile(){
+document.getElementById("clickSound").play();
+document.getElementById("popup").style.display="flex";
+}
+
+function closeProfile(){
+document.getElementById("popup").style.display="none";
+}
+</script>
+
+</body>
+</html>
