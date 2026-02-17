@@ -12,7 +12,7 @@ body{background:#000;color:#fff;font-family:'Orbitron',sans-serif;overflow:hidde
 canvas{position:fixed;top:0;left:0;z-index:0;opacity:.06}
 
 /* INTRO */
-#intro{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;transition:1s;text-align:center}
+#intro{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;text-align:center}
 .intro-top-link{position:absolute;top:20px;right:30px;cursor:pointer;color:#aaa;font-size:14px}
 .logo{font-size:90px;letter-spacing:15px;text-shadow:0 0 30px #fff}
 .warning-title{margin-top:25px;font-size:20px;letter-spacing:3px;animation:flashWarning 1.2s infinite}
@@ -26,42 +26,28 @@ button:hover{background:#fff;color:#000}
 
 /* MAIN */
 #main{display:none;opacity:0;transition:1.5s;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.members{display:flex;gap:60px;align-items:center;margin-bottom:40px;flex-wrap:wrap;justify-content:center}
-.member-card{text-align:center;cursor:pointer;transition:.4s}
+.members{display:flex;gap:50px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+.member-card{text-align:center;cursor:pointer}
 .member-card img{
-width:230px;height:290px;object-fit:cover;border-radius:15px;
-box-shadow:0 0 30px rgba(255,255,255,.3);
-animation:softGlow 3s ease-in-out infinite alternate;
-}
-@keyframes softGlow{
-from{box-shadow:0 0 30px rgba(255,255,255,.3)}
-to{box-shadow:0 0 60px rgba(255,255,255,.6)}
+width:220px;height:280px;object-fit:cover;border-radius:15px;
+box-shadow:0 0 40px rgba(255,255,255,.4);
+transition:.3s
 }
 .member-card:hover img{transform:scale(1.05)}
-.center{transform:scale(1.1)}
-.small img{width:160px;height:200px}
 .role{opacity:.7;font-size:14px}
-.member-card h2,.member-card h3{
-text-shadow:0 0 5px #fff,0 0 15px #fff;
-}
+.blur{filter:blur(5px)}
 
 /* PANEL */
-#profilePanel{
-position:fixed;top:0;right:-100%;
-width:430px;height:100vh;background:#111;
-transition:.5s;z-index:9999;padding:30px;overflow-y:auto;
-}
+#profilePanel{position:fixed;top:0;right:-100%;width:430px;height:100vh;background:#111;transition:.5s;z-index:9999;padding:30px;overflow-y:auto}
 #profilePanel.active{right:0}
-.profile-img{width:220px;height:280px;object-fit:cover;border-radius:12px;margin-bottom:20px;box-shadow:0 0 40px #fff}
+.profile-img{width:220px;height:280px;border-radius:12px;margin-bottom:20px;box-shadow:0 0 40px #fff}
 .close-btn{position:absolute;top:15px;left:20px;font-size:28px;cursor:pointer}
 .profile-links a{
 display:inline-block;margin:10px;padding:8px 15px;
-border:1px solid #fff;color:#fff;text-decoration:none;
-font-size:12px
+border:1px solid #fff;color:#fff;text-decoration:none;font-size:12px
 }
 .profile-links a:hover{background:#fff;color:#000}
 .translate-btn{margin-top:10px;padding:6px 15px;font-size:12px}
-.blur{filter:blur(5px)}
 </style>
 </head>
 
@@ -89,45 +75,45 @@ This website is harmless.<br>
 </div>
 
 <div id="main">
-
 <div class="members">
+
 <div class="member-card" onclick="openProfile('assiri')">
 <img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
-<h2>ASSIRI</h2>
+<h3>ASSIRI</h3>
 <div class="role">(Owner)</div>
 </div>
 
 <div class="member-card" onclick="openProfile('maliki')">
 <img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg">
-<h2>AL-MALIKI</h2>
+<h3>AL-MALIKI</h3>
 <div class="role">(Co Owner)</div>
 </div>
 
-<div class="member-card small" onclick="openProfile('manager1')">
+<div class="member-card" onclick="openProfile('manager1')">
 <img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg">
 <h3>#الّلْواءْ أبوظّليّيٍمْ١6.</h3>
 <div class="role">(Manager)</div>
 </div>
 
-<div class="member-card small" onclick="openProfile('subaii')">
+<div class="member-card" onclick="openProfile('subaii')">
 <img src="https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg">
 <h3>AL-SUBAII</h3>
 <div class="role">(Manager)</div>
 </div>
 
-<div class="member-card small" onclick="openProfile('tamimi')">
+<div class="member-card" onclick="openProfile('tamimi')">
 <img src="https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg">
 <h3>Abdullah Al-Tamimi</h3>
 <div class="role">(N5BH)</div>
 </div>
 
-<div class="member-card small" onclick="openProfile('firas')">
+<div class="member-card" onclick="openProfile('firas')">
 <img src="https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg">
 <h3>فراس القحطاني</h3>
 <div class="role">(MANGER)</div>
 </div>
-</div>
 
+</div>
 </div>
 
 <div id="profilePanel">
@@ -160,15 +146,10 @@ drops[i]++;
 setInterval(draw,40);
 
 function enterSite(){
-document.getElementById("intro").style.opacity="0";
-setTimeout(()=>{
 document.getElementById("intro").style.display="none";
 document.getElementById("main").style.display="flex";
-setTimeout(()=>{document.getElementById("main").style.opacity="1"},150);
-let audio=document.getElementById("music");
-audio.volume=0.5;
-audio.play().catch(e=>console.log(e));
-},900);
+document.getElementById("music").volume=0.5;
+document.getElementById("music").play();
 }
 
 let currentLang="en";
@@ -187,17 +168,67 @@ function renderProfile(){
 let content=document.getElementById("profileContent");
 
 let data={
-assiri:{img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",name:"ASSIRI",role:"(Owner)",en:"Elite leader.",ar:"قائد نخبة."},
-maliki:{img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",name:"AL-MALIKI",role:"(Co Owner)",en:"Trusted right hand.",ar:"اليد اليمنى."},
-manager1:{img:"https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg",name:"#الّلْواءْ أبوظّليّيٍمْ١6.",role:"(Manager)",en:"Former naval commander.",ar:"قائد بحري سابق."},
-subaii:{img:"https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg",name:"AL-SUBAII",role:"(Manager)",en:"Rose to elite intelligence 😉.",ar:"ارتقى للنخبة 😉."},
-tamimi:{img:"https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg",name:"Abdullah Al-Tamimi",role:"(N5BH)",en:"Lexus power must be controlled.",ar:"لكزس قوة يجب التحكم بها."},
-firas:{img:"https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg",name:"فراس القحطاني",role:"(MANGER)",en:"Spontaneous and bold personality.",ar:"شخص عفوي وجريء."}
+assiri:{
+img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",
+name:"ASSIRI",
+role:"(Owner)",
+en:`A dominant leader who commands elite power with precision.
+Strategic, fearless, and always ahead.
+Respected. Feared. Admired.
+The backbone of N5BH.`,
+ar:`قائد مسيطر يمتلك قوة ونفوذ عالي.
+استراتيجي ومتقدم دائماً.
+محترم ومهيب.
+الركيزة الأساسية لـ N5BH.`,
+link:"https://www.tiktok.com/@0w.fh?is_from_webapp=1&sender_device=pc"
+},
+maliki:{
+img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",
+name:"AL-MALIKI",
+role:"(Co Owner)",
+en:`The trusted right hand of N5BH.
+A man of loyalty and strength.`,
+ar:`اليد اليمنى الموثوقة لـ N5BH.
+رجل وفي وصاحب حضور.`,
+link:"https://www.tiktok.com/@iyxu?is_from_webapp=1&sender_device=pc"
+},
+manager1:{
+img:"https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg",
+name:"#الّلْواءْ أبوظّليّيٍمْ١6.",
+role:"(Manager)",
+en:`Writer, philosopher, and former naval commander.
+Loyal and fearless.`,
+ar:`كاتب وفيلسوف وقائد بحري سابق.
+وفي وشجاع.`,
+link:"https://www.instagram.com/e01kx?igsh=NGg5aTB0bmYxZWkx&utm_source=qr"
+},
+subaii:{
+img:"https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg",
+name:"AL-SUBAII",
+role:"(Manager)",
+en:`Rose from foolishness to elite intelligence 😉.`,
+ar:`ارتقى من الغباء إلى النخبة 😉.`,
+link:"https://www.tiktok.com/@MS4wLjABAAAAvWvk0YVHWN54zg7wC-mNDemUO4cUK6UgTsi0gvXykCI77oiA-RdCtXeFnmvsb7eW?is_from_webapp=1&sender_device=pc"
+},
+tamimi:{
+img:"https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg",
+name:"Abdullah Al-Tamimi",
+role:"(N5BH)",
+en:`Owner of a Lexus — power must be controlled.`,
+ar:`معي لكزس — القوة يجب التحكم بها.`,
+link:"https://www.tiktok.com/@alhussein_3?is_from_webapp=1&sender_device=pc"
+},
+firas:{
+img:"https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg",
+name:"فراس القحطاني",
+role:"(MANGER)",
+en:`Spontaneous and bold personality.`,
+ar:`شخص عفوي وجريء.`,
+link:"https://www.tiktok.com/@fohej4?_r=1&_t=ZS-940OMTpZR6l"
+}
 };
 
 let user=data[currentUser];
-if(!user) return;
-
 let text=currentLang==="en"?user.en:user.ar;
 
 content.innerHTML=`
@@ -206,6 +237,9 @@ content.innerHTML=`
 <h4>${user.role}</h4>
 <p id="bioText" style="margin-top:15px;line-height:1.8;"></p>
 <button class="translate-btn" onclick="toggleLang()">Translate / ترجمة</button>
+<div class="profile-links">
+<a href="${user.link}" target="_blank">Social Media</a>
+</div>
 `;
 
 setTimeout(()=>{typeEffect(text)},50);
