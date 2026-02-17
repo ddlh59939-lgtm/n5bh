@@ -3,167 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>N5BH</title>
-
+<title>N5BH server </title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-background:#000;
-color:#fff;
-font-family:'Orbitron',sans-serif;
-overflow:hidden;
-}
+body{background:#000;color:#fff;font-family:'Orbitron',sans-serif;overflow:hidden}
 
 /* MATRIX */
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:0;
-opacity:0.06;
-}
+canvas{position:fixed;top:0;left:0;z-index:0;opacity:.06}
 
 /* INTRO */
-#intro{
-position:fixed;
-inset:0;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:2;
-transition:1s;
+#intro{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;transition:1s;text-align:center}
+.intro-top-link{position:absolute;top:20px;right:30px;cursor:pointer;color:#aaa;font-size:14px;transition:.3s}
+.intro-top-link:hover{color:#fff;text-shadow:0 0 15px #fff}
+.logo{font-size:90px;letter-spacing:15px;text-shadow:0 0 30px #fff}
+.warning-title{margin-top:25px;font-size:20px;letter-spacing:3px;animation:flashWarning 1.2s infinite}
+.warning-text{margin-top:10px;font-size:14px;opacity:.9;line-height:1.7;max-width:700px}
+@keyframes flashWarning{
+0%,100%{text-shadow:0 0 5px #fff;opacity:.6}
+50%{text-shadow:0 0 25px #fff,0 0 50px #fff;opacity:1}
 }
-
-.logo{
-font-size:90px;
-letter-spacing:15px;
-text-shadow:0 0 30px #fff;
-}
-
-button{
-margin-top:30px;
-padding:12px 50px;
-background:transparent;
-border:1px solid #fff;
-color:#fff;
-cursor:pointer;
-transition:.3s;
-}
-button:hover{
-background:#fff;
-color:#000;
-}
+button{margin-top:30px;padding:12px 50px;background:transparent;border:1px solid #fff;color:#fff;cursor:pointer;transition:.3s}
+button:hover{background:#fff;color:#000}
 
 /* MAIN */
-#main{
-display:none;
-opacity:0;
-transition:1.5s;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-position:relative;
-}
-
-.members{
-display:flex;
-gap:80px;
-align-items:center;
-}
-
-.member-card{
-text-align:center;
-cursor:pointer;
-transition:.4s;
-}
-
+#main{display:none;opacity:0;transition:1.5s;height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column}
+.members{display:flex;gap:90px;align-items:center}
+.member-card{text-align:center;cursor:pointer;transition:.4s}
 .member-card img{
-width:260px;
-height:330px;
-object-fit:cover;
-border-radius:15px;
-box-shadow:0 0 40px rgba(255,255,255,0.4);
-transition:.4s;
+width:260px;height:330px;object-fit:cover;border-radius:15px;
+box-shadow:0 0 30px rgba(255,255,255,.3);
+animation:softGlow 3s ease-in-out infinite alternate;
+transition:.4s
 }
-
-.member-card:hover img{
-transform:scale(1.05);
-box-shadow:0 0 70px #fff;
+@keyframes softGlow{
+from{box-shadow:0 0 30px rgba(255,255,255,.3)}
+to{box-shadow:0 0 60px rgba(255,255,255,.6)}
 }
-
-.center{
-transform:scale(1.1);
-}
-
+.member-card:hover img{transform:scale(1.05);box-shadow:0 0 70px #fff}
+.center{transform:scale(1.1)}
 .role{opacity:.7;font-size:14px}
 .title{font-size:12px;opacity:.6}
+.blur{filter:blur(5px)}
 
 /* PROFILE PANEL */
-#profilePanel{
-position:fixed;
-top:0;
-right:-100%;
-width:420px;
-height:100vh;
-background:#111;
-box-shadow:-5px 0 40px rgba(255,255,255,0.1);
-transition:.5s ease;
-z-index:9999;
-padding:30px;
-overflow-y:auto;
-}
-#profilePanel.active{ right:0; }
-
-.profile-img{
-width:220px;
-height:280px;
-object-fit:cover;
-border-radius:12px;
-margin-bottom:20px;
-box-shadow:0 0 40px #fff;
-}
-
-.close-btn{
-position:absolute;
-top:15px;
-left:20px;
-font-size:28px;
-cursor:pointer;
-}
-
-.profile-links a{
-display:inline-block;
-margin:10px;
-padding:8px 15px;
-border:1px solid #fff;
-color:#fff;
-text-decoration:none;
-transition:.3s;
-}
-.profile-links a:hover{
-background:#fff;
-color:#000;
-}
-
-.blur{ filter:blur(5px); }
+#profilePanel{position:fixed;top:0;right:-100%;width:430px;height:100vh;background:#111;box-shadow:-5px 0 40px rgba(255,255,255,.1);transition:.5s ease;z-index:9999;padding:30px;overflow-y:auto}
+#profilePanel.active{right:0}
+.profile-img{width:220px;height:280px;object-fit:cover;border-radius:12px;margin-bottom:20px;box-shadow:0 0 40px #fff}
+.close-btn{position:absolute;top:15px;left:20px;font-size:28px;cursor:pointer}
+.profile-links a{display:inline-block;margin:10px;padding:8px 15px;border:1px solid #fff;color:#fff;text-decoration:none;transition:.3s}
+.profile-links a:hover{background:#fff;color:#000}
+.translate-btn{margin-top:10px;padding:6px 15px;font-size:12px}
 
 /* FLASH */
-.flash{
-position:fixed;
-inset:0;
-background:#fff;
-opacity:0;
-pointer-events:none;
-}
-.shock{ animation:shock .4s ease; }
-@keyframes shock{
-0%{opacity:1}
-100%{opacity:0}
+.flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none}
+.shock{animation:shock .4s ease}
+@keyframes shock{0%{opacity:1}100%{opacity:0}}
+
+/* SHAKE */
+@keyframes slightShake{
+0%{transform:translateX(0)}
+25%{transform:translateX(-3px)}
+50%{transform:translateX(3px)}
+75%{transform:translateX(-2px)}
+100%{transform:translateX(0)}
 }
 </style>
 </head>
@@ -180,16 +84,28 @@ pointer-events:none;
 
 <canvas id="matrix"></canvas>
 
+<!-- INTRO -->
 <div id="intro">
+<div class="intro-top-link" onclick="window.open('https://discord.gg/4VuMPVrXwR','_blank')">
+Discord Server
+</div>
+
 <div class="logo">N5BH</div>
+
+<div class="warning-title">⚠ WARNING</div>
+
+<div class="warning-text">
+This website is harmless.<br>
+هذا الموقع غير ضار إنما هو فقط لعيون #N5BH
+</div>
+
 <button onclick="enterSite()">ENTER</button>
 </div>
 
+<!-- MAIN -->
 <div id="main">
-
 <div class="members">
 
-<!-- CO OWNER -->
 <div class="member-card" onclick="openProfile('maliki')">
 <img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg">
 <h2>AL-MALIKI</h2>
@@ -197,7 +113,6 @@ pointer-events:none;
 <div class="title">Right Hand of N5BH</div>
 </div>
 
-<!-- OWNER CENTER -->
 <div class="member-card center" onclick="openProfile('assiri')">
 <img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
 <h2>ASSIRI</h2>
@@ -206,7 +121,6 @@ pointer-events:none;
 </div>
 
 </div>
-
 </div>
 
 <!-- PROFILE PANEL -->
@@ -245,57 +159,101 @@ setInterval(draw,40);
 /* ENTER */
 function enterSite(){
 document.getElementById("flash").classList.add("shock");
-document.getElementById("intro").style.opacity="0";
+let intro=document.getElementById("intro");
+intro.style.transform="scale(1.1)";
+intro.style.opacity="0";
 setTimeout(()=>{
-document.getElementById("intro").style.display="none";
+intro.style.display="none";
 document.getElementById("main").style.display="flex";
-setTimeout(()=>{document.getElementById("main").style.opacity="1";},100);
+setTimeout(()=>{document.getElementById("main").style.opacity="1"},150);
 document.getElementById("music").play().catch(e=>console.log(e));
 document.body.style.overflow="auto";
-},800);
+},900);
 }
 
-/* PROFILE DATA */
+/* PROFILE */
+let currentLang="en";
+let currentUser="";
+
 function openProfile(type){
 document.getElementById("clickSound").play();
-var content=document.getElementById("profileContent");
+currentUser=type;
+currentLang="en";
+renderProfile();
+document.getElementById("profilePanel").classList.add("active");
+document.getElementById("profilePanel").style.animation="slightShake .3s";
+document.getElementById("main").classList.add("blur");
+}
 
-if(type==="assiri"){
-content.innerHTML=`
-<img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg" class="profile-img">
-<h2>ASSIRI</h2>
-<h4>(Owner)</h4>
-<p>
-A dominant leader who commands elite power with precision.
-Strategic, fearless, and always three steps ahead.
+function renderProfile(){
+let content=document.getElementById("profileContent");
+
+let data={
+assiri:{
+img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",
+name:"ASSIRI",
+role:"(Owner)",
+en:`A dominant leader who commands elite power with precision.
+Strategic, fearless, and always ahead.
 A visionary shaping outcomes with calculated words.
 Respected. Feared. Admired.
-The backbone of N5BH.
-</p>
-<div class="profile-links">
-<a href="https://www.tiktok.com/@0w.fh?is_from_webapp=1&sender_device=pc" target="_blank">TikTok</a>
-</div>`;
+The backbone of N5BH.`,
+ar:`قائد مسيطر يمتلك قوة ونفوذ عالي.
+شخص استراتيجي لا يخاف ودائماً متقدم بخطوات.
+يصنع النتائج بكلمات محسوبة.
+محترم، مهيب، ومصدر قوة لـ N5BH.`
+},
+maliki:{
+img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",
+name:"AL-MALIKI",
+role:"(Co Owner)",
+en:`The most trusted right-hand of N5BH.
+A man of honor and loyalty.
+Reliable in every situation.
+Strong presence and respected by all.
+A true pillar of the server.`,
+ar:`اليد اليمنى الموثوقة لـ N5BH.
+رجل شهم يعتمد عليه في كل وقت.
+وفيّ وصاحب كلمة.
+هيبة وحضور قوي.
+ركيزة أساسية في السيرفر.`
 }
+};
 
-if(type==="maliki"){
+let user=data[currentUser];
+let text=currentLang==="en"?user.en:user.ar;
+
 content.innerHTML=`
-<img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg" class="profile-img">
-<h2>AL-MALIKI</h2>
-<h4>(Co Owner)</h4>
-<p>
-The most trusted right-hand of N5BH.
-A man of honor, loyalty, and strength.
-Reliable in every situation and respected by all.
-A true pillar of the server and a presence that commands respect.
-Dependable, disciplined, and always standing firm.
-</p>
+<img src="${user.img}" class="profile-img">
+<h2>${user.name}</h2>
+<h4>${user.role}</h4>
+<p id="bioText" style="margin-top:15px;line-height:1.8;"></p>
+<button class="translate-btn" onclick="toggleLang()">Translate / ترجمة</button>
 <div class="profile-links">
-<a href="https://www.tiktok.com/@iyxu?is_from_webapp=1&sender_device=pc" target="_blank">TikTok</a>
-</div>`;
+<a href="${currentUser==='assiri'?'https://www.tiktok.com/@0w.fh?is_from_webapp=1&sender_device=pc':'https://www.tiktok.com/@iyxu?is_from_webapp=1&sender_device=pc'}" target="_blank">TikTok</a>
+</div>
+`;
+
+setTimeout(()=>{typeEffect(text)},50);
 }
 
-document.getElementById("profilePanel").classList.add("active");
-document.getElementById("main").classList.add("blur");
+function typeEffect(text){
+let i=0;
+let bio=document.getElementById("bioText");
+bio.innerHTML="";
+function typing(){
+if(i<text.length){
+bio.innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,15);
+}
+}
+typing();
+}
+
+function toggleLang(){
+currentLang=currentLang==="en"?"ar":"en";
+renderProfile();
 }
 
 function closeProfile(){
