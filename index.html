@@ -210,13 +210,18 @@ drops[i]++;
 }
 setInterval(draw,40);
 
-function enterSite(){
+function function enterSite(){
 document.getElementById("intro").style.display="none";
-document.getElementById("main").style.display="flex";
+
+let main = document.getElementById("main");
+main.style.opacity="1";
+main.style.pointerEvents="auto";
+
 let audio=document.getElementById("music");
 audio.volume=0.5;
 audio.play();
 }
+
 
 function toggleSound(){
 let audio=document.getElementById("music");
