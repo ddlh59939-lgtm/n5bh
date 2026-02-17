@@ -29,7 +29,7 @@ button:hover{background:#fff;color:#000}
 
 /* MAIN */
 #main{display:none;opacity:0;transition:1.5s;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.members{display:flex;gap:90px;align-items:center;margin-bottom:50px}
+.members{display:flex;gap:90px;align-items:center;margin-bottom:60px}
 .member-card{text-align:center;cursor:pointer;transition:.4s}
 .member-card img{
 width:260px;height:330px;object-fit:cover;border-radius:15px;
@@ -95,11 +95,25 @@ This website is harmless.<br>
 <div id="main">
 
 <div class="members">
-<div class="member-card center" onclick="openProfile('manager')">
-<img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg">
-<h2>#الّلْواءْ أبوظّليّيٍمْ١6.</h2>
-<div class="role">(Manager)</div>
+
+<div class="member-card" onclick="openProfile('maliki')">
+<img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg">
+<h2>AL-MALIKI</h2>
+<div class="role">(Co Owner)</div>
 </div>
+
+<div class="member-card center" onclick="openProfile('assiri')">
+<img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
+<h2>ASSIRI</h2>
+<div class="role">(Owner)</div>
+</div>
+
+</div>
+
+<div class="member-card small" onclick="openProfile('manager')">
+<img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg">
+<h3>#الّلْواءْ أبوظّليّيٍمْ١6.</h3>
+<div class="role">(Manager)</div>
 </div>
 
 </div>
@@ -112,7 +126,6 @@ This website is harmless.<br>
 <div class="flash" id="flash"></div>
 
 <script>
-/* MATRIX */
 var canvas=document.getElementById("matrix");
 var ctx=canvas.getContext("2d");
 canvas.height=window.innerHeight;
@@ -149,11 +162,13 @@ document.body.style.overflow="auto";
 },900);
 }
 
-/* PROFILE */
 let currentLang="en";
+let currentUser="";
 
 function openProfile(type){
 document.getElementById("clickSound").play();
+currentUser=type;
+currentLang="en";
 renderProfile();
 document.getElementById("profilePanel").classList.add("active");
 document.getElementById("main").classList.add("blur");
@@ -162,28 +177,63 @@ document.getElementById("main").classList.add("blur");
 function renderProfile(){
 let content=document.getElementById("profileContent");
 
-let en=`A fierce and uncompromising demographic figure.
-A brave and bold personality who never delays decisions.
-Writer, philosopher, and former naval forces commander.
-Known by presence alone — AbuZleem, formerly AbuAnnaz.
-Loyal to friends and despises betrayal under any circumstance.`;
-
-let ar=`شخص ديموغرافي قاسي ومغوار لا يحب التأجيل.
+let data={
+assiri:{
+img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",
+name:"ASSIRI",
+role:"(Owner)",
+en:`A dominant leader who commands elite power with precision.
+Strategic, fearless, and always ahead.
+Respected. Feared. Admired.
+The backbone of N5BH.`,
+ar:`قائد مسيطر يمتلك قوة ونفوذ عالي.
+شخص استراتيجي دائماً متقدم.
+محترم ومهيب.
+الركيزة الأساسية لـ N5BH.`
+},
+maliki:{
+img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",
+name:"AL-MALIKI",
+role:"(Co Owner)",
+en:`The most trusted right-hand of N5BH.
+A man of honor and loyalty.
+Strong presence and respected by all.`,
+ar:`اليد اليمنى الموثوقة لـ N5BH.
+رجل شهم يعتمد عليه.
+حضور قوي وهيبة واضحة.`
+},
+manager:{
+img:"https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg",
+name:"#الّلْواءْ أبوظّليّيٍمْ١6.",
+role:"(Manager)",
+en:`A fierce and uncompromising demographic figure.
+Writer, philosopher, and former naval commander.
+Loyal to friends and despises betrayal.`,
+ar:`شخص ديموغرافي قاسي ومغوار.
 كاتب وفيلسوف وقائد سابق في القوات البحرية.
-المعروف لا يُعرّف — أبوظليم ~ أبو عنّاز سابقاً.
-وفيّ لأصدقائه ولا يحب الغدر مهما كان السبب.`;
+وفيّ لأصدقائه ولا يحب الغدر.`
+}
+};
 
-let text=currentLang==="en"?en:ar;
+let user=data[currentUser];
+let text=currentLang==="en"?user.en:user.ar;
 
 content.innerHTML=`
-<img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg" class="profile-img">
-<h2>#الّلْواءْ أبوظّليّيٍمْ١6.</h2>
-<h4>(Manager)</h4>
+<img src="${user.img}" class="profile-img">
+<h2>${user.name}</h2>
+<h4>${user.role}</h4>
 <p id="bioText" style="margin-top:15px;line-height:1.8;"></p>
 <button class="translate-btn" onclick="toggleLang()">Translate / ترجمة</button>
-
 <div class="profile-links">
-<a href="https://www.instagram.com/e01kx?igsh=NGg5aTB0bmYxZWkx&utm_source=qr" target="_blank">Instagram</a>
+<a href="${
+currentUser==='assiri'
+?'https://www.tiktok.com/@0w.fh?is_from_webapp=1&sender_device=pc'
+:currentUser==='maliki'
+?'https://www.tiktok.com/@iyxu?is_from_webapp=1&sender_device=pc'
+:'https://www.instagram.com/e01kx?igsh=NGg5aTB0bmYxZWkx&utm_source=qr'
+}" target="_blank">
+${currentUser==='manager'?'Instagram':'TikTok'}
+</a>
 </div>
 `;
 
