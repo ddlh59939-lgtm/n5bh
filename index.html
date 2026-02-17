@@ -22,17 +22,17 @@ canvas{position:fixed;top:0;left:0;z-index:0;opacity:.06}
 .warning-text{margin-top:10px;font-size:14px;opacity:.9;line-height:1.7;max-width:700px}
 @keyframes flashWarning{
 0%,100%{text-shadow:0 0 5px #fff;opacity:.6}
-50%{text-shadow:0 0 25px #fff,0 0 50px #fff;opacity:1}
+50%{text-shadow:0 0 25px #fff;opacity:1}
 }
 button{margin-top:30px;padding:12px 50px;background:transparent;border:1px solid #fff;color:#fff;cursor:pointer;transition:.3s}
 button:hover{background:#fff;color:#000}
 
 /* MAIN */
 #main{display:none;opacity:0;transition:1.5s;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.members{display:flex;gap:90px;align-items:center;margin-bottom:60px}
+.members{display:flex;gap:80px;align-items:center;margin-bottom:50px}
 .member-card{text-align:center;cursor:pointer;transition:.4s}
 .member-card img{
-width:260px;height:330px;object-fit:cover;border-radius:15px;
+width:250px;height:320px;object-fit:cover;border-radius:15px;
 box-shadow:0 0 30px rgba(255,255,255,.3);
 animation:softGlow 3s ease-in-out infinite alternate;
 transition:.4s
@@ -41,21 +41,41 @@ transition:.4s
 from{box-shadow:0 0 30px rgba(255,255,255,.3)}
 to{box-shadow:0 0 60px rgba(255,255,255,.6)}
 }
-.member-card:hover img{transform:scale(1.05);box-shadow:0 0 70px #fff}
+.member-card:hover img{transform:scale(1.05)}
 .center{transform:scale(1.1)}
 .small img{width:180px;height:220px}
 .role{opacity:.7;font-size:14px}
+
+/* Neon Names */
+.member-card h2,.member-card h3{
+text-shadow:0 0 5px #fff,0 0 15px #fff;
+transition:.3s;
+}
+.member-card:hover h2,.member-card:hover h3{
+text-shadow:0 0 10px #fff,0 0 30px #fff;
+}
+
 .blur{filter:blur(5px)}
 
-/* PROFILE PANEL */
-#profilePanel{position:fixed;top:0;right:-100%;width:430px;height:100vh;background:#111;box-shadow:-5px 0 40px rgba(255,255,255,.1);transition:.5s ease;z-index:9999;padding:30px;overflow-y:auto}
+/* PANEL */
+#profilePanel{
+position:fixed;top:0;right:-100%;
+width:430px;height:100vh;background:#111;
+transition:.5s;z-index:9999;padding:30px;overflow-y:auto;
+animation:fadePanel .4s ease;
+}
 #profilePanel.active{right:0}
+@keyframes fadePanel{
+from{opacity:0;transform:translateX(20px)}
+to{opacity:1;transform:translateX(0)}
+}
+
 .profile-img{width:220px;height:280px;object-fit:cover;border-radius:12px;margin-bottom:20px;box-shadow:0 0 40px #fff}
 .close-btn{position:absolute;top:15px;left:20px;font-size:28px;cursor:pointer}
 .profile-links a{
 display:inline-block;margin:10px;padding:8px 15px;
 border:1px solid #fff;color:#fff;text-decoration:none;
-transition:.3s;font-size:12px
+font-size:12px;transition:.3s
 }
 .profile-links a:hover{background:#fff;color:#000}
 .translate-btn{margin-top:10px;padding:6px 15px;font-size:12px}
@@ -80,9 +100,7 @@ transition:.3s;font-size:12px
 <canvas id="matrix"></canvas>
 
 <div id="intro">
-<div class="intro-top-link" onclick="window.open('https://discord.gg/4VuMPVrXwR','_blank')">
-Discord Server
-</div>
+<div class="intro-top-link" onclick="window.open('https://discord.gg/4VuMPVrXwR','_blank')">Discord Server</div>
 <div class="logo">N5BH</div>
 <div class="warning-title">⚠ WARNING</div>
 <div class="warning-text">
@@ -95,7 +113,6 @@ This website is harmless.<br>
 <div id="main">
 
 <div class="members">
-
 <div class="member-card" onclick="openProfile('maliki')">
 <img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg">
 <h2>AL-MALIKI</h2>
@@ -107,13 +124,23 @@ This website is harmless.<br>
 <h2>ASSIRI</h2>
 <div class="role">(Owner)</div>
 </div>
-
 </div>
 
-<div class="member-card small" onclick="openProfile('manager')">
+<!-- Divider -->
+<div style="width:60%;height:1px;background:linear-gradient(to right,transparent,#fff,transparent);margin:20px auto;"></div>
+
+<div class="members">
+<div class="member-card small" onclick="openProfile('manager1')">
 <img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg">
 <h3>#الّلْواءْ أبوظّليّيٍمْ١6.</h3>
 <div class="role">(Manager)</div>
+</div>
+
+<div class="member-card small" onclick="openProfile('subaii')">
+<img src="https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg">
+<h3>AL-SUBAII</h3>
+<div class="role">(Manager)</div>
+</div>
 </div>
 
 </div>
@@ -150,15 +177,14 @@ drops[i]++;
 setInterval(draw,40);
 
 function enterSite(){
-document.getElementById("flash").classList.add("shock");
-let intro=document.getElementById("intro");
-intro.style.opacity="0";
+document.getElementById("intro").style.opacity="0";
 setTimeout(()=>{
-intro.style.display="none";
+document.getElementById("intro").style.display="none";
 document.getElementById("main").style.display="flex";
 setTimeout(()=>{document.getElementById("main").style.opacity="1"},150);
-document.getElementById("music").play().catch(e=>console.log(e));
-document.body.style.overflow="auto";
+let audio=document.getElementById("music");
+audio.volume=0.5;
+audio.play().catch(e=>console.log(e));
 },900);
 }
 
@@ -182,40 +208,35 @@ assiri:{
 img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",
 name:"ASSIRI",
 role:"(Owner)",
-en:`A dominant leader who commands elite power with precision.
-Strategic, fearless, and always ahead.
-Respected. Feared. Admired.
-The backbone of N5BH.`,
-ar:`قائد مسيطر يمتلك قوة ونفوذ عالي.
-شخص استراتيجي دائماً متقدم.
-محترم ومهيب.
-الركيزة الأساسية لـ N5BH.`
+en:`A dominant leader who commands elite power with precision.`,
+ar:`قائد مسيطر يمتلك قوة ونفوذ عالي.`
 },
 maliki:{
 img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",
 name:"AL-MALIKI",
 role:"(Co Owner)",
-en:`The most trusted right-hand of N5BH.
-A man of honor and loyalty.
-Strong presence and respected by all.`,
-ar:`اليد اليمنى الموثوقة لـ N5BH.
-رجل شهم يعتمد عليه.
-حضور قوي وهيبة واضحة.`
+en:`Trusted right-hand of N5BH.`,
+ar:`اليد اليمنى الموثوقة لـ N5BH.`
 },
-manager:{
+manager1:{
 img:"https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg",
 name:"#الّلْواءْ أبوظّليّيٍمْ١6.",
 role:"(Manager)",
-en:`A fierce and uncompromising demographic figure.
-Writer, philosopher, and former naval commander.
-Loyal to friends and despises betrayal.`,
-ar:`شخص ديموغرافي قاسي ومغوار.
-كاتب وفيلسوف وقائد سابق في القوات البحرية.
-وفيّ لأصدقائه ولا يحب الغدر.`
+en:`Writer, philosopher, and former naval commander.`,
+ar:`كاتب وفيلسوف وقائد سابق في القوات البحرية.`
+},
+subaii:{
+img:"https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg",
+name:"AL-SUBAII",
+role:"(Manager)",
+en:`Rose from foolishness to elite intelligence 😉.`,
+ar:`ارتقى من الغباء إلى مرحلة النخبة 😉.`
 }
 };
 
 let user=data[currentUser];
+if(!user) return;
+
 let text=currentLang==="en"?user.en:user.ar;
 
 content.innerHTML=`
@@ -224,17 +245,6 @@ content.innerHTML=`
 <h4>${user.role}</h4>
 <p id="bioText" style="margin-top:15px;line-height:1.8;"></p>
 <button class="translate-btn" onclick="toggleLang()">Translate / ترجمة</button>
-<div class="profile-links">
-<a href="${
-currentUser==='assiri'
-?'https://www.tiktok.com/@0w.fh?is_from_webapp=1&sender_device=pc'
-:currentUser==='maliki'
-?'https://www.tiktok.com/@iyxu?is_from_webapp=1&sender_device=pc'
-:'https://www.instagram.com/e01kx?igsh=NGg5aTB0bmYxZWkx&utm_source=qr'
-}" target="_blank">
-${currentUser==='manager'?'Instagram':'TikTok'}
-</a>
-</div>
 `;
 
 setTimeout(()=>{typeEffect(text)},50);
@@ -256,6 +266,9 @@ typing();
 
 function toggleLang(){
 currentLang=currentLang==="en"?"ar":"en";
+let panel=document.getElementById("profilePanel");
+panel.style.boxShadow="0 0 30px #fff";
+setTimeout(()=>{panel.style.boxShadow="none";},200);
 renderProfile();
 }
 
