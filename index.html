@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N5BH | النخبه</title>
 
+<style>
+body{
+margin:0;
+background:#000;
+color:#fff;
+font-family:Arial;
+overflow:hidden;
+}
+
+#intro{
+position:fixed;
+width:100%;
+height:100vh;
+background:#000;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+transition:1s;
+}
+
+.logo{
+font-size:90px;
+letter-spacing:15px;
+color:#fff;
+text-shadow:
+0 0 10px #fff,
+0 0 20px #ddd,
+0 0 40px #aaa,
+0 0 80px #888;
+animation:glow 1.5s infinite alternate;
+}
+
+@keyframes glow{
+from{ text-shadow:0 0 10px #fff;}
+to{ text-shadow:0 0 60px #ccc;}
+}
+
+button{
+margin-top:40px;
+padding:15px 50px;
+background:#111;
+border:1px solid #555;
+color:white;
+cursor:pointer;
+font-size:18px;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 20px #fff;
+}
+
+#main{
+display:none;
+text-align:center;
+padding-top:200px;
+height:100vh;
+background:linear-gradient(#000,#111);
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+<div class="logo">النخبه</div>
+<button onclick="enterSite()">دخول</button>
+</div>
+
+<div id="main">
+<h1>مرحباً بك في سيرفر النخبه 🔥</h1>
+<p>الموقع الرسمي</p>
+</div>
+
+<script>
+function enterSite(){
+document.getElementById("intro").style.display="none";
+document.getElementById("main").style.display="block";
+}
+</script>
+
+</body>
+</html>
