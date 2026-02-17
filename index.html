@@ -15,17 +15,11 @@ canvas{position:fixed;top:0;left:0;z-index:0;opacity:.06}
 
 /* SOUND BUTTON */
 #soundToggle{
-position:fixed;
-top:20px;
-left:20px;
+position:fixed;top:20px;left:20px;
 background:rgba(0,0,0,0.6);
-border:1px solid #fff;
-color:#fff;
-padding:8px 12px;
-cursor:pointer;
-font-size:14px;
-z-index:9999;
-transition:.3s;
+border:1px solid #fff;color:#fff;
+padding:8px 12px;cursor:pointer;
+font-size:14px;z-index:9999;transition:.3s
 }
 #soundToggle:hover{background:#fff;color:#000}
 
@@ -61,12 +55,19 @@ color:#fff;cursor:pointer
 }
 button:hover{background:#fff;color:#000}
 
-/* MAIN */
+/* MAIN (مصلّح بالكامل) */
 #main{
-display:none;opacity:0;transition:1.5s;
-height:100vh;display:flex;
-flex-direction:column;justify-content:center;align-items:center
+opacity:0;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+pointer-events:none;
+transition:opacity 1.2s ease;
 }
+
+/* MEMBERS */
 .members{
 display:flex;gap:50px;flex-wrap:wrap;
 justify-content:center;margin-bottom:40px
@@ -187,6 +188,7 @@ This website is harmless.<br>
 </div>
 
 <script>
+/* MATRIX */
 var canvas=document.getElementById("matrix");
 var ctx=canvas.getContext("2d");
 canvas.height=window.innerHeight;
@@ -210,19 +212,19 @@ drops[i]++;
 }
 setInterval(draw,40);
 
-function function enterSite(){
+/* ENTER FIXED */
+function enterSite(){
 document.getElementById("intro").style.display="none";
-
-let main = document.getElementById("main");
+let main=document.getElementById("main");
 main.style.opacity="1";
 main.style.pointerEvents="auto";
 
 let audio=document.getElementById("music");
 audio.volume=0.5;
-audio.play();
+audio.play().catch(()=>{});
 }
 
-
+/* SOUND */
 function toggleSound(){
 let audio=document.getElementById("music");
 let btn=document.getElementById("soundToggle");
@@ -235,6 +237,7 @@ btn.innerHTML="🔇";
 }
 }
 
+/* PROFILE SYSTEM */
 let currentLang="en";
 let currentUser="";
 
