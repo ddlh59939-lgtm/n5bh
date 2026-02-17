@@ -26,10 +26,10 @@ button:hover{background:#fff;color:#000}
 
 /* MAIN */
 #main{display:none;opacity:0;transition:1.5s;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.members{display:flex;gap:70px;align-items:center;margin-bottom:40px;flex-wrap:wrap;justify-content:center}
+.members{display:flex;gap:60px;align-items:center;margin-bottom:40px;flex-wrap:wrap;justify-content:center}
 .member-card{text-align:center;cursor:pointer;transition:.4s}
 .member-card img{
-width:240px;height:300px;object-fit:cover;border-radius:15px;
+width:230px;height:290px;object-fit:cover;border-radius:15px;
 box-shadow:0 0 30px rgba(255,255,255,.3);
 animation:softGlow 3s ease-in-out infinite alternate;
 }
@@ -39,7 +39,7 @@ to{box-shadow:0 0 60px rgba(255,255,255,.6)}
 }
 .member-card:hover img{transform:scale(1.05)}
 .center{transform:scale(1.1)}
-.small img{width:170px;height:210px}
+.small img{width:160px;height:200px}
 .role{opacity:.7;font-size:14px}
 .member-card h2,.member-card h3{
 text-shadow:0 0 5px #fff,0 0 15px #fff;
@@ -91,20 +91,18 @@ This website is harmless.<br>
 <div id="main">
 
 <div class="members">
+<div class="member-card" onclick="openProfile('assiri')">
+<img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
+<h2>ASSIRI</h2>
+<div class="role">(Owner)</div>
+</div>
+
 <div class="member-card" onclick="openProfile('maliki')">
 <img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg">
 <h2>AL-MALIKI</h2>
 <div class="role">(Co Owner)</div>
 </div>
 
-<div class="member-card center" onclick="openProfile('assiri')">
-<img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
-<h2>ASSIRI</h2>
-<div class="role">(Owner)</div>
-</div>
-</div>
-
-<div class="members">
 <div class="member-card small" onclick="openProfile('manager1')">
 <img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg">
 <h3>#الّلْواءْ أبوظّليّيٍمْ١6.</h3>
@@ -121,6 +119,12 @@ This website is harmless.<br>
 <img src="https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg">
 <h3>Abdullah Al-Tamimi</h3>
 <div class="role">(N5BH)</div>
+</div>
+
+<div class="member-card small" onclick="openProfile('firas')">
+<img src="https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg">
+<h3>فراس القحطاني</h3>
+<div class="role">(MANGER)</div>
 </div>
 </div>
 
@@ -183,15 +187,12 @@ function renderProfile(){
 let content=document.getElementById("profileContent");
 
 let data={
-tamimi:{
-img:"https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg",
-name:"Abdullah Al-Tamimi",
-role:"(N5BH)",
-en:`Owner of a Lexus — a vehicle that leads to the grave when misused.
-Power must be controlled, or it controls you.`,
-ar:`معي لكزس، مركبة تؤدي إلى القبر لسوء الاستخدام.
-القوة إن لم تتحكم بها ستتحكم بك.`
-}
+assiri:{img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",name:"ASSIRI",role:"(Owner)",en:"Elite leader.",ar:"قائد نخبة."},
+maliki:{img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",name:"AL-MALIKI",role:"(Co Owner)",en:"Trusted right hand.",ar:"اليد اليمنى."},
+manager1:{img:"https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg",name:"#الّلْواءْ أبوظّليّيٍمْ١6.",role:"(Manager)",en:"Former naval commander.",ar:"قائد بحري سابق."},
+subaii:{img:"https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg",name:"AL-SUBAII",role:"(Manager)",en:"Rose to elite intelligence 😉.",ar:"ارتقى للنخبة 😉."},
+tamimi:{img:"https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg",name:"Abdullah Al-Tamimi",role:"(N5BH)",en:"Lexus power must be controlled.",ar:"لكزس قوة يجب التحكم بها."},
+firas:{img:"https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg",name:"فراس القحطاني",role:"(MANGER)",en:"Spontaneous and bold personality.",ar:"شخص عفوي وجريء."}
 };
 
 let user=data[currentUser];
@@ -205,9 +206,6 @@ content.innerHTML=`
 <h4>${user.role}</h4>
 <p id="bioText" style="margin-top:15px;line-height:1.8;"></p>
 <button class="translate-btn" onclick="toggleLang()">Translate / ترجمة</button>
-<div class="profile-links">
-<a href="https://www.tiktok.com/@alhussein_3?is_from_webapp=1&sender_device=pc" target="_blank">TikTok</a>
-</div>
 `;
 
 setTimeout(()=>{typeEffect(text)},50);
