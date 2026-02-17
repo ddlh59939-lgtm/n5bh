@@ -113,15 +113,6 @@ transform:scale(1.05);
 box-shadow:0 0 70px #fff;
 }
 
-.crown{
-position:absolute;
-top:-30px;
-left:50%;
-transform:translateX(-50%);
-font-size:35px;
-animation:spin 8s linear infinite;
-}
-
 @keyframes spin{
 from{transform:translateX(-50%) rotate(0deg);}
 to{transform:translateX(-50%) rotate(360deg);}
@@ -208,7 +199,7 @@ Server N5BH
 </div>
 
 <div class="member-card" onclick="openProfile()">
-<div class="crown">👑</div>
+<div class="crown">N5</div>
 <img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
 <h2>ASSIRI</h2>
 <div class="role">(Owner)</div>
@@ -273,7 +264,10 @@ setTimeout(()=>{
 document.getElementById("intro").style.display="none";
 document.getElementById("main").style.display="flex";
 setTimeout(()=>{document.getElementById("main").style.opacity="1";},100);
-document.getElementById("music").play();
+var audio = document.getElementById("music");
+audio.volume = 0.8;
+audio.play().catch(e => console.log("Audio blocked:", e));
+
 document.body.style.overflow="auto";
 },800);
 }
