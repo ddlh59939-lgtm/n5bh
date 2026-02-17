@@ -9,42 +9,102 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;color:#fff;font-family:'Orbitron',sans-serif;overflow:hidden}
+
+/* MATRIX */
 canvas{position:fixed;top:0;left:0;z-index:0;opacity:.06}
 
+/* SOUND BUTTON */
+#soundToggle{
+position:fixed;
+top:20px;
+left:20px;
+background:rgba(0,0,0,0.6);
+border:1px solid #fff;
+color:#fff;
+padding:8px 12px;
+cursor:pointer;
+font-size:14px;
+z-index:9999;
+transition:.3s;
+}
+#soundToggle:hover{background:#fff;color:#000}
+
 /* INTRO */
-#intro{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;text-align:center}
-.intro-top-link{position:absolute;top:20px;right:30px;cursor:pointer;color:#aaa;font-size:14px}
-.logo{font-size:90px;letter-spacing:15px;text-shadow:0 0 30px #fff}
-.warning-title{margin-top:25px;font-size:20px;letter-spacing:3px;animation:flashWarning 1.2s infinite}
+#intro{
+position:fixed;inset:0;
+display:flex;flex-direction:column;
+justify-content:center;align-items:center;
+z-index:2;text-align:center
+}
+.intro-top-link{
+position:absolute;top:20px;right:30px;
+cursor:pointer;color:#aaa;font-size:14px
+}
+.logo{
+font-size:90px;letter-spacing:15px;
+text-shadow:0 0 30px #fff
+}
+.warning-title{
+margin-top:25px;font-size:20px;
+letter-spacing:3px;
+animation:flashWarning 1.2s infinite
+}
 .warning-text{margin-top:10px;font-size:14px;opacity:.9}
 @keyframes flashWarning{
 0%,100%{text-shadow:0 0 5px #fff;opacity:.6}
 50%{text-shadow:0 0 25px #fff;opacity:1}
 }
-button{margin-top:30px;padding:12px 50px;background:transparent;border:1px solid #fff;color:#fff;cursor:pointer}
+button{
+margin-top:30px;padding:12px 50px;
+background:transparent;border:1px solid #fff;
+color:#fff;cursor:pointer
+}
 button:hover{background:#fff;color:#000}
 
 /* MAIN */
-#main{display:none;opacity:0;transition:1.5s;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.members{display:flex;gap:50px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+#main{
+display:none;opacity:0;transition:1.5s;
+height:100vh;display:flex;
+flex-direction:column;justify-content:center;align-items:center
+}
+.members{
+display:flex;gap:50px;flex-wrap:wrap;
+justify-content:center;margin-bottom:40px
+}
 .member-card{text-align:center;cursor:pointer}
 .member-card img{
-width:220px;height:280px;object-fit:cover;border-radius:15px;
+width:280px;height:350px;
+object-fit:cover;border-radius:15px;
 box-shadow:0 0 40px rgba(255,255,255,.4);
 transition:.3s
 }
-.member-card:hover img{transform:scale(1.05)}
+.member-card:hover img{
+transform:scale(1.05);
+box-shadow:0 0 70px #fff
+}
 .role{opacity:.7;font-size:14px}
 .blur{filter:blur(5px)}
 
 /* PANEL */
-#profilePanel{position:fixed;top:0;right:-100%;width:430px;height:100vh;background:#111;transition:.5s;z-index:9999;padding:30px;overflow-y:auto}
+#profilePanel{
+position:fixed;top:0;right:-100%;
+width:430px;height:100vh;background:#111;
+transition:.5s;z-index:9999;padding:30px;overflow-y:auto
+}
 #profilePanel.active{right:0}
-.profile-img{width:220px;height:280px;border-radius:12px;margin-bottom:20px;box-shadow:0 0 40px #fff}
-.close-btn{position:absolute;top:15px;left:20px;font-size:28px;cursor:pointer}
+.profile-img{
+width:220px;height:280px;
+border-radius:12px;margin-bottom:20px;
+box-shadow:0 0 40px #fff
+}
+.close-btn{
+position:absolute;top:15px;left:20px;
+font-size:28px;cursor:pointer
+}
 .profile-links a{
-display:inline-block;margin:10px;padding:8px 15px;
-border:1px solid #fff;color:#fff;text-decoration:none;font-size:12px
+display:inline-block;margin:10px;
+padding:8px 15px;border:1px solid #fff;
+color:#fff;text-decoration:none;font-size:12px
 }
 .profile-links a:hover{background:#fff;color:#000}
 .translate-btn{margin-top:10px;padding:6px 15px;font-size:12px}
@@ -52,6 +112,8 @@ border:1px solid #fff;color:#fff;text-decoration:none;font-size:12px
 </head>
 
 <body>
+
+<div id="soundToggle" onclick="toggleSound()">🔊</div>
 
 <audio id="music" loop preload="auto">
 <source src="song.mp3" type="audio/mp3">
@@ -64,7 +126,10 @@ border:1px solid #fff;color:#fff;text-decoration:none;font-size:12px
 <canvas id="matrix"></canvas>
 
 <div id="intro">
-<div class="intro-top-link" onclick="window.open('https://discord.gg/4VuMPVrXwR','_blank')">Discord Server</div>
+<div class="intro-top-link"
+onclick="window.open('https://discord.gg/4VuMPVrXwR','_blank')">
+Discord Server
+</div>
 <div class="logo">N5BH</div>
 <div class="warning-title">⚠ WARNING</div>
 <div class="warning-text">
@@ -148,8 +213,21 @@ setInterval(draw,40);
 function enterSite(){
 document.getElementById("intro").style.display="none";
 document.getElementById("main").style.display="flex";
-document.getElementById("music").volume=0.5;
-document.getElementById("music").play();
+let audio=document.getElementById("music");
+audio.volume=0.5;
+audio.play();
+}
+
+function toggleSound(){
+let audio=document.getElementById("music");
+let btn=document.getElementById("soundToggle");
+if(audio.volume===0){
+audio.volume=0.5;
+btn.innerHTML="🔊";
+}else{
+audio.volume=0;
+btn.innerHTML="🔇";
+}
 }
 
 let currentLang="en";
