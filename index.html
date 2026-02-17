@@ -3,14 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>N5BH
-  State </title>
+<title>N5BH</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-
 body{
 background:#000;
 color:#fff;
@@ -18,13 +16,13 @@ font-family:'Orbitron',sans-serif;
 overflow:hidden;
 }
 
-/* MATRIX BACKGROUND */
+/* MATRIX */
 canvas{
 position:fixed;
 top:0;
 left:0;
 z-index:0;
-opacity:0.08;
+opacity:0.06;
 }
 
 /* INTRO */
@@ -43,12 +41,6 @@ transition:1s;
 font-size:90px;
 letter-spacing:15px;
 text-shadow:0 0 30px #fff;
-animation:glitch 2s infinite;
-}
-
-@keyframes glitch{
-0%,100%{text-shadow:0 0 25px #fff;}
-50%{text-shadow:2px 0 35px #aaa,-2px 0 35px #fff;}
 }
 
 button{
@@ -60,13 +52,12 @@ color:#fff;
 cursor:pointer;
 transition:.3s;
 }
-
 button:hover{
 background:#fff;
 color:#000;
 }
 
-/* MAIN PAGE */
+/* MAIN */
 #main{
 display:none;
 opacity:0;
@@ -76,33 +67,24 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-}
-
-/* TOP RIGHT LINK */
-.top-link{
-position:absolute;
-top:20px;
-right:30px;
-cursor:pointer;
-color:#aaa;
-font-size:14px;
-}
-
-.top-link:hover{
-color:#fff;
-text-shadow:0 0 15px #fff;
-}
-
-/* MEMBER CARD */
-.member-card{
 position:relative;
+}
+
+.members{
+display:flex;
+gap:80px;
+align-items:center;
+}
+
+.member-card{
 text-align:center;
 cursor:pointer;
+transition:.4s;
 }
 
 .member-card img{
-width:280px;
-height:350px;
+width:260px;
+height:330px;
 object-fit:cover;
 border-radius:15px;
 box-shadow:0 0 40px rgba(255,255,255,0.4);
@@ -114,47 +96,63 @@ transform:scale(1.05);
 box-shadow:0 0 70px #fff;
 }
 
-@keyframes spin{
-from{transform:translateX(-50%) rotate(0deg);}
-to{transform:translateX(-50%) rotate(360deg);}
+.center{
+transform:scale(1.1);
 }
 
-.member-card h2{
-margin-top:15px;
-}
+.role{opacity:.7;font-size:14px}
+.title{font-size:12px;opacity:.6}
 
-.role{
-opacity:.7;
-font-size:14px;
-}
-
-.title{
-margin-top:5px;
-font-size:12px;
-opacity:.6;
-}
-
-/* POPUP */
-#popup{
+/* PROFILE PANEL */
+#profilePanel{
 position:fixed;
-inset:0;
-background:rgba(0,0,0,0.95);
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-text-align:center;
-padding:40px;
+top:0;
+right:-100%;
+width:420px;
+height:100vh;
+background:#111;
+box-shadow:-5px 0 40px rgba(255,255,255,0.1);
+transition:.5s ease;
 z-index:9999;
-animation:fadeIn .5s;
+padding:30px;
+overflow-y:auto;
+}
+#profilePanel.active{ right:0; }
+
+.profile-img{
+width:220px;
+height:280px;
+object-fit:cover;
+border-radius:12px;
+margin-bottom:20px;
+box-shadow:0 0 40px #fff;
 }
 
-@keyframes fadeIn{
-from{opacity:0;transform:scale(0.95);}
-to{opacity:1;transform:scale(1);}
+.close-btn{
+position:absolute;
+top:15px;
+left:20px;
+font-size:28px;
+cursor:pointer;
 }
 
-/* FLASH SHOCK */
+.profile-links a{
+display:inline-block;
+margin:10px;
+padding:8px 15px;
+border:1px solid #fff;
+color:#fff;
+text-decoration:none;
+transition:.3s;
+}
+.profile-links a:hover{
+background:#fff;
+color:#000;
+}
+
+.blur{ filter:blur(5px); }
+
+/* FLASH */
 .flash{
 position:fixed;
 inset:0;
@@ -162,11 +160,7 @@ background:#fff;
 opacity:0;
 pointer-events:none;
 }
-
-.shock{
-animation:shock .4s ease;
-}
-
+.shock{ animation:shock .4s ease; }
 @keyframes shock{
 0%{opacity:1}
 100%{opacity:0}
@@ -176,12 +170,10 @@ animation:shock .4s ease;
 
 <body>
 
-<!-- MUSIC -->
-<audio id="music" loop>
+<audio id="music" loop preload="auto">
 <source src="song.mp3" type="audio/mp3">
 </audio>
 
-<!-- CLICK SOUND -->
 <audio id="clickSound">
 <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mp3">
 </audio>
@@ -195,12 +187,18 @@ animation:shock .4s ease;
 
 <div id="main">
 
-<div class="top-link" onclick="window.open('https://discord.gg/4VuMPVrXwR','_blank')">
-Server N5BH
+<div class="members">
+
+<!-- CO OWNER -->
+<div class="member-card" onclick="openProfile('maliki')">
+<img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg">
+<h2>AL-MALIKI</h2>
+<div class="role">(Co Owner)</div>
+<div class="title">Right Hand of N5BH</div>
 </div>
 
-<div class="member-card" onclick="openProfile()">
-<div class="crown">N5</div>
+<!-- OWNER CENTER -->
+<div class="member-card center" onclick="openProfile('assiri')">
 <img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
 <h2>ASSIRI</h2>
 <div class="role">(Owner)</div>
@@ -209,46 +207,27 @@ Server N5BH
 
 </div>
 
-<div id="popup">
-<img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg" style="width:320px;border-radius:15px;margin-bottom:20px;box-shadow:0 0 50px #fff;">
-<h2>ASSIRI</h2>
-<h4>(Owner)</h4>
-<p style="max-width:700px;line-height:1.8;margin-top:15px;">
-A dominant force who commands elite power and stands beside the strongest companions.  
-A master strategist who bends outcomes with only a few precise words.  
-Professional, calculated, always steps ahead.  
-A visionary leader shaping realities with confidence and intelligence.  
-The backbone of N5BH — respected, feared, admired.
-  
-قوة مهيمنة تتمتع بنفوذ النخبة وتقف إلى جانب أقوى الحلفاء.
-خبير استراتيجي بارع يُغيّر النتائج بكلمات قليلة دقيقة.
-محترف، محسوب، دائمًا ما يخطو خطوات استباقية.
-قائد صاحب رؤية يُشكّل الواقع بثقة وذكاء.
-عمود N5BH الفقري - يحظى بالاحترام والرهبة والإعجاب.
-</p>
-<br>
-<a href="https://www.tiktok.com/@0w.fh?is_from_webapp=1&sender_device=pc" target="_blank">
-<button>Visit TikTok</button>
-</a>
-<br><br>
-<button onclick="closeProfile()">Close</button>
+</div>
+
+<!-- PROFILE PANEL -->
+<div id="profilePanel">
+<span class="close-btn" onclick="closeProfile()">×</span>
+<div id="profileContent"></div>
 </div>
 
 <div class="flash" id="flash"></div>
 
 <script>
-/* MATRIX EFFECT */
+/* MATRIX */
 var canvas=document.getElementById("matrix");
 var ctx=canvas.getContext("2d");
 canvas.height=window.innerHeight;
 canvas.width=window.innerWidth;
-
 var letters="N5BH0123456789".split("");
 var fontSize=16;
 var columns=canvas.width/fontSize;
 var drops=[];
 for(var x=0;x<columns;x++) drops[x]=1;
-
 function draw(){
 ctx.fillStyle="rgba(0,0,0,0.05)";
 ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -271,22 +250,57 @@ setTimeout(()=>{
 document.getElementById("intro").style.display="none";
 document.getElementById("main").style.display="flex";
 setTimeout(()=>{document.getElementById("main").style.opacity="1";},100);
-var audio = document.getElementById("music");
-audio.volume = 0.8;
-audio.play().catch(e => console.log("Audio blocked:", e));
-
+document.getElementById("music").play().catch(e=>console.log(e));
 document.body.style.overflow="auto";
 },800);
 }
 
-/* PROFILE */
-function openProfile(){
+/* PROFILE DATA */
+function openProfile(type){
 document.getElementById("clickSound").play();
-document.getElementById("popup").style.display="flex";
+var content=document.getElementById("profileContent");
+
+if(type==="assiri"){
+content.innerHTML=`
+<img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg" class="profile-img">
+<h2>ASSIRI</h2>
+<h4>(Owner)</h4>
+<p>
+A dominant leader who commands elite power with precision.
+Strategic, fearless, and always three steps ahead.
+A visionary shaping outcomes with calculated words.
+Respected. Feared. Admired.
+The backbone of N5BH.
+</p>
+<div class="profile-links">
+<a href="https://www.tiktok.com/@0w.fh?is_from_webapp=1&sender_device=pc" target="_blank">TikTok</a>
+</div>`;
+}
+
+if(type==="maliki"){
+content.innerHTML=`
+<img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg" class="profile-img">
+<h2>AL-MALIKI</h2>
+<h4>(Co Owner)</h4>
+<p>
+The most trusted right-hand of N5BH.
+A man of honor, loyalty, and strength.
+Reliable in every situation and respected by all.
+A true pillar of the server and a presence that commands respect.
+Dependable, disciplined, and always standing firm.
+</p>
+<div class="profile-links">
+<a href="https://www.tiktok.com/@iyxu?is_from_webapp=1&sender_device=pc" target="_blank">TikTok</a>
+</div>`;
+}
+
+document.getElementById("profilePanel").classList.add("active");
+document.getElementById("main").classList.add("blur");
 }
 
 function closeProfile(){
-document.getElementById("popup").style.display="none";
+document.getElementById("profilePanel").classList.remove("active");
+document.getElementById("main").classList.remove("blur");
 }
 </script>
 
