@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>N5BH | Official</title>
+<title>N5BH SYSTEM</title>
 
-<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
 background:#000;
 color:#fff;
@@ -17,200 +17,154 @@ font-family:'Orbitron',sans-serif;
 overflow:hidden;
 }
 
-/* ===== Cinematic Intro ===== */
+/* ===== MATRIX NUMBERS BACKGROUND ===== */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:0;
+}
+
+/* ===== INTRO CONTENT ===== */
 #intro{
-position:fixed;inset:0;
-background:#000;
-display:flex;flex-direction:column;
-justify-content:center;align-items:center;
-z-index:9999;
-transition:1.2s ease;
-}
-
-/* Cloud Smoke */
-.clouds{
-position:absolute;inset:0;
-background:url("https://i.imgur.com/3aX9Q0E.png");
-background-size:cover;
-opacity:.25;
-animation:moveClouds 60s linear infinite;
-}
-@keyframes moveClouds{
-0%{background-position:0 0}
-100%{background-position:1000px 0}
-}
-
-/* Neon Logo */
-.logo{
-font-size:100px;
-letter-spacing:15px;
+position:fixed;
+inset:0;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 z-index:2;
+text-align:center;
+}
+
+.logo{
+font-size:90px;
+letter-spacing:15px;
 color:#fff;
 text-shadow:
 0 0 10px #fff,
-0 0 20px #ddd,
-0 0 40px #aaa,
-0 0 80px #888;
-animation:glow 1.5s infinite alternate;
+0 0 20px #ccc,
+0 0 40px #aaa;
+animation:glow 2s infinite alternate;
 }
+
 @keyframes glow{
-from{text-shadow:0 0 10px #fff}
-to{text-shadow:0 0 80px #ccc}
+from{ text-shadow:0 0 10px #fff;}
+to{ text-shadow:0 0 60px #fff;}
 }
 
-.enter-btn{
+/* Warning Flash */
+.warning{
 margin-top:40px;
-padding:15px 60px;
+font-size:13px;
+opacity:.8;
+animation:flash 1.5s infinite;
+}
+
+@keyframes flash{
+0%,100%{opacity:.3}
+50%{opacity:1}
+}
+
+/* Button */
+button{
+margin-top:30px;
+padding:12px 50px;
 background:transparent;
-border:1px solid #555;
+border:1px solid #fff;
 color:#fff;
 cursor:pointer;
-font-size:18px;
-transition:.3s;
-z-index:2;
-}
-.enter-btn:hover{
-transform:scale(1.1);
-box-shadow:0 0 20px #fff;
-}
-
-/* ===== Main Site ===== */
-#main{display:none;overflow:auto}
-
-/* Navbar */
-nav{
-position:fixed;
-top:0;right:0;
-padding:20px;
-}
-nav a{
-margin-left:25px;
-color:#aaa;
-text-decoration:none;
-font-size:16px;
 transition:.3s;
 }
-nav a:hover{color:#fff}
 
-/* Hero */
-header{
+button:hover{
+background:#fff;
+color:#000;
+}
+
+/* MAIN SITE */
+#main{
+display:none;
 height:100vh;
-display:flex;flex-direction:column;
-justify-content:center;align-items:center;
-background:linear-gradient(#000,#111);
-text-align:center;
-}
-header h1{
-font-size:70px;
-margin-bottom:20px;
-}
-
-/* Admin Section */
-.admins{
-padding:80px 20px;
-text-align:center;
-background:#111;
-}
-.admin-card{
-margin:15px;
-padding:15px 25px;
-background:#1a1a1a;
-display:inline-block;
-border:1px solid #333;
-}
-
-/* Chat */
-.chat{
-padding:60px 20px;
 background:#000;
-text-align:center;
-}
-#messages{
-height:200px;
-overflow-y:auto;
-border:1px solid #333;
-margin-bottom:10px;
-padding:10px;
-text-align:left;
-}
-input,button.send{
-padding:10px;
-border:none;
-}
-input{width:60%}
-button.send{
-background:#222;
 color:#fff;
-cursor:pointer;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUDIO -->
+<!-- MUSIC -->
 <audio id="music" loop>
-<source src="song.mp3" type="audio/mp3">
+<source src="PUT_YOUR_MP3_LINK_HERE" type="audio/mp3">
 </audio>
 
-<!-- INTRO -->
+<canvas id="matrix"></canvas>
+
 <div id="intro">
-<div class="clouds"></div>
 <div class="logo">N5BH</div>
-<button class="enter-btn" onclick="enterSite()">ENTER</button>
+
+<button onclick="enterSite()">ENTER</button>
+
+<div class="warning">
+⚠ WARNING <br>
+هذا الموقع غير ضار <br>
+This website is harmless
+</div>
 </div>
 
-<!-- MAIN -->
 <div id="main">
-
-<nav>
-<a href="#">Home</a>
-<a href="https://discord.gg/4VuMPVrXwR" target="_blank">Discord Server</a>
-</nav>
-
-<header>
-<h1>N5BH</h1>
-<p>Official Roleplay Experience</p>
-</header>
-
-<section class="admins">
-<h2>Server Administration</h2>
-<div class="admin-card">Owner - N5BH Leader</div>
-<div class="admin-card">Co Owner - N5BH Admin</div>
-<div class="admin-card">Head Admin - N5BH Staff</div>
-<div class="admin-card">Moderator - N5BH Mod</div>
-</section>
-
-<section class="chat">
-<h2>Public Chat</h2>
-<div id="messages"></div>
-<input type="text" id="username" placeholder="Your Name">
-<input type="text" id="messageInput" placeholder="Type a message">
-<button class="send" onclick="sendMessage()">Send</button>
-</section>
-
+<h1>Welcome to N5BH</h1>
+<p>Official Portal</p>
 </div>
 
 <script>
+/* ===== MATRIX EFFECT WHITE ===== */
+var canvas=document.getElementById("matrix");
+var ctx=canvas.getContext("2d");
+
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
+
+var letters="N5BH0123456789";
+letters=letters.split("");
+
+var fontSize=16;
+var columns=canvas.width/fontSize;
+var drops=[];
+
+for(var x=0;x<columns;x++)
+drops[x]=1;
+
+function draw(){
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#ffffff";
+ctx.font=fontSize+"px monospace";
+
+for(var i=0;i<drops.length;i++){
+var text=letters[Math.floor(Math.random()*letters.length)];
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+}
+}
+setInterval(draw,35);
+
+/* ENTER FUNCTION */
 function enterSite(){
-document.getElementById("intro").style.opacity="0";
-setTimeout(()=>{
 document.getElementById("intro").style.display="none";
-document.getElementById("main").style.display="block";
+document.getElementById("main").style.display="flex";
 document.getElementById("music").play();
 document.body.style.overflow="auto";
-},1200);
-}
-
-/* Simple Local Chat (temporary) */
-function sendMessage(){
-let user=document.getElementById("username").value;
-let msg=document.getElementById("messageInput").value;
-if(user && msg){
-let box=document.getElementById("messages");
-box.innerHTML += "<p><b>[N5BH] "+user+":</b> "+msg+"</p>";
-document.getElementById("messageInput").value="";
-}
 }
 </script>
 
