@@ -9,33 +9,29 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;color:#fff;font-family:'Orbitron',sans-serif;overflow:hidden}
-
-/* MATRIX */
 canvas{position:fixed;top:0;left:0;z-index:0;opacity:.06}
 
 /* INTRO */
 #intro{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:2;transition:1s;text-align:center}
-.intro-top-link{position:absolute;top:20px;right:30px;cursor:pointer;color:#aaa;font-size:14px;transition:.3s}
-.intro-top-link:hover{color:#fff;text-shadow:0 0 15px #fff}
+.intro-top-link{position:absolute;top:20px;right:30px;cursor:pointer;color:#aaa;font-size:14px}
 .logo{font-size:90px;letter-spacing:15px;text-shadow:0 0 30px #fff}
 .warning-title{margin-top:25px;font-size:20px;letter-spacing:3px;animation:flashWarning 1.2s infinite}
-.warning-text{margin-top:10px;font-size:14px;opacity:.9;line-height:1.7;max-width:700px}
+.warning-text{margin-top:10px;font-size:14px;opacity:.9}
 @keyframes flashWarning{
 0%,100%{text-shadow:0 0 5px #fff;opacity:.6}
 50%{text-shadow:0 0 25px #fff;opacity:1}
 }
-button{margin-top:30px;padding:12px 50px;background:transparent;border:1px solid #fff;color:#fff;cursor:pointer;transition:.3s}
+button{margin-top:30px;padding:12px 50px;background:transparent;border:1px solid #fff;color:#fff;cursor:pointer}
 button:hover{background:#fff;color:#000}
 
 /* MAIN */
 #main{display:none;opacity:0;transition:1.5s;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.members{display:flex;gap:80px;align-items:center;margin-bottom:50px}
+.members{display:flex;gap:70px;align-items:center;margin-bottom:40px;flex-wrap:wrap;justify-content:center}
 .member-card{text-align:center;cursor:pointer;transition:.4s}
 .member-card img{
-width:250px;height:320px;object-fit:cover;border-radius:15px;
+width:240px;height:300px;object-fit:cover;border-radius:15px;
 box-shadow:0 0 30px rgba(255,255,255,.3);
 animation:softGlow 3s ease-in-out infinite alternate;
-transition:.4s
 }
 @keyframes softGlow{
 from{box-shadow:0 0 30px rgba(255,255,255,.3)}
@@ -43,47 +39,29 @@ to{box-shadow:0 0 60px rgba(255,255,255,.6)}
 }
 .member-card:hover img{transform:scale(1.05)}
 .center{transform:scale(1.1)}
-.small img{width:180px;height:220px}
+.small img{width:170px;height:210px}
 .role{opacity:.7;font-size:14px}
-
-/* Neon Names */
 .member-card h2,.member-card h3{
 text-shadow:0 0 5px #fff,0 0 15px #fff;
-transition:.3s;
 }
-.member-card:hover h2,.member-card:hover h3{
-text-shadow:0 0 10px #fff,0 0 30px #fff;
-}
-
-.blur{filter:blur(5px)}
 
 /* PANEL */
 #profilePanel{
 position:fixed;top:0;right:-100%;
 width:430px;height:100vh;background:#111;
 transition:.5s;z-index:9999;padding:30px;overflow-y:auto;
-animation:fadePanel .4s ease;
 }
 #profilePanel.active{right:0}
-@keyframes fadePanel{
-from{opacity:0;transform:translateX(20px)}
-to{opacity:1;transform:translateX(0)}
-}
-
 .profile-img{width:220px;height:280px;object-fit:cover;border-radius:12px;margin-bottom:20px;box-shadow:0 0 40px #fff}
 .close-btn{position:absolute;top:15px;left:20px;font-size:28px;cursor:pointer}
 .profile-links a{
 display:inline-block;margin:10px;padding:8px 15px;
 border:1px solid #fff;color:#fff;text-decoration:none;
-font-size:12px;transition:.3s
+font-size:12px
 }
 .profile-links a:hover{background:#fff;color:#000}
 .translate-btn{margin-top:10px;padding:6px 15px;font-size:12px}
-
-/* FLASH */
-.flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none}
-.shock{animation:shock .4s ease}
-@keyframes shock{0%{opacity:1}100%{opacity:0}}
+.blur{filter:blur(5px)}
 </style>
 </head>
 
@@ -126,9 +104,6 @@ This website is harmless.<br>
 </div>
 </div>
 
-<!-- Divider -->
-<div style="width:60%;height:1px;background:linear-gradient(to right,transparent,#fff,transparent);margin:20px auto;"></div>
-
 <div class="members">
 <div class="member-card small" onclick="openProfile('manager1')">
 <img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg">
@@ -141,6 +116,12 @@ This website is harmless.<br>
 <h3>AL-SUBAII</h3>
 <div class="role">(Manager)</div>
 </div>
+
+<div class="member-card small" onclick="openProfile('tamimi')">
+<img src="https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg">
+<h3>Abdullah Al-Tamimi</h3>
+<div class="role">(N5BH)</div>
+</div>
 </div>
 
 </div>
@@ -149,8 +130,6 @@ This website is harmless.<br>
 <span class="close-btn" onclick="closeProfile()">×</span>
 <div id="profileContent"></div>
 </div>
-
-<div class="flash" id="flash"></div>
 
 <script>
 var canvas=document.getElementById("matrix");
@@ -204,33 +183,14 @@ function renderProfile(){
 let content=document.getElementById("profileContent");
 
 let data={
-assiri:{
-img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",
-name:"ASSIRI",
-role:"(Owner)",
-en:`A dominant leader who commands elite power with precision.`,
-ar:`قائد مسيطر يمتلك قوة ونفوذ عالي.`
-},
-maliki:{
-img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",
-name:"AL-MALIKI",
-role:"(Co Owner)",
-en:`Trusted right-hand of N5BH.`,
-ar:`اليد اليمنى الموثوقة لـ N5BH.`
-},
-manager1:{
-img:"https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg",
-name:"#الّلْواءْ أبوظّليّيٍمْ١6.",
-role:"(Manager)",
-en:`Writer, philosopher, and former naval commander.`,
-ar:`كاتب وفيلسوف وقائد سابق في القوات البحرية.`
-},
-subaii:{
-img:"https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg",
-name:"AL-SUBAII",
-role:"(Manager)",
-en:`Rose from foolishness to elite intelligence 😉.`,
-ar:`ارتقى من الغباء إلى مرحلة النخبة 😉.`
+tamimi:{
+img:"https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg",
+name:"Abdullah Al-Tamimi",
+role:"(N5BH)",
+en:`Owner of a Lexus — a vehicle that leads to the grave when misused.
+Power must be controlled, or it controls you.`,
+ar:`معي لكزس، مركبة تؤدي إلى القبر لسوء الاستخدام.
+القوة إن لم تتحكم بها ستتحكم بك.`
 }
 };
 
@@ -245,6 +205,9 @@ content.innerHTML=`
 <h4>${user.role}</h4>
 <p id="bioText" style="margin-top:15px;line-height:1.8;"></p>
 <button class="translate-btn" onclick="toggleLang()">Translate / ترجمة</button>
+<div class="profile-links">
+<a href="https://www.tiktok.com/@alhussein_3?is_from_webapp=1&sender_device=pc" target="_blank">TikTok</a>
+</div>
 `;
 
 setTimeout(()=>{typeEffect(text)},50);
@@ -266,9 +229,6 @@ typing();
 
 function toggleLang(){
 currentLang=currentLang==="en"?"ar":"en";
-let panel=document.getElementById("profilePanel");
-panel.style.boxShadow="0 0 30px #fff";
-setTimeout(()=>{panel.style.boxShadow="none";},200);
 renderProfile();
 }
 
