@@ -55,7 +55,7 @@ color:#fff;cursor:pointer
 }
 button:hover{background:#fff;color:#000}
 
-/* MAIN (مصلّح بالكامل) */
+/* MAIN */
 #main{
 opacity:0;
 height:100vh;
@@ -179,13 +179,18 @@ This website is harmless.<br>
 <div class="role">(MANGER)</div>
 </div>
 
-  <div class="member-card" onclick="openProfile('abukhaled')">
+<div class="member-card" onclick="openProfile('abukhaled')">
 <img src="https://i.pinimg.com/736x/f7/46/b6/f746b6651b72a1dc5225eb823f142941.jpg">
 <h3>ABU KHALED</h3>
 <div class="role">(MANGER)</div>
 </div>
 
-  
+<div class="member-card" onclick="openProfile('turki')">
+<img src="https://i.pinimg.com/736x/ef/75/6a/ef756a21e81d2f30888d5f1279511fbe.jpg" style="filter:grayscale(100%);">
+<h3>TURKI AL-SAHLI</h3>
+<div class="role">(N5BH)</div>
+</div>
+
 </div>
 </div>
 
@@ -195,29 +200,6 @@ This website is harmless.<br>
 </div>
 
 <script>
-/* MATRIX */
-var canvas=document.getElementById("matrix");
-var ctx=canvas.getContext("2d");
-canvas.height=window.innerHeight;
-canvas.width=window.innerWidth;
-var letters="N5BH0123456789".split("");
-var fontSize=16;
-var columns=canvas.width/fontSize;
-var drops=[];
-for(var x=0;x<columns;x++) drops[x]=1;
-function draw(){
-ctx.fillStyle="rgba(0,0,0,0.05)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="#ffffff";
-ctx.font=fontSize+"px monospace";
-for(var i=0;i<drops.length;i++){
-var text=letters[Math.floor(Math.random()*letters.length)];
-ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-if(drops[i]*fontSize>canvas.height && Math.random()>0.975) drops[i]=0;
-drops[i]++;
-}
-}
-setInterval(draw,40);
 
 /* ENTER FIXED */
 function enterSite(){
@@ -225,13 +207,11 @@ document.getElementById("intro").style.display="none";
 let main=document.getElementById("main");
 main.style.opacity="1";
 main.style.pointerEvents="auto";
-
 let audio=document.getElementById("music");
 audio.volume=0.5;
 audio.play().catch(()=>{});
 }
 
-/* SOUND */
 function toggleSound(){
 let audio=document.getElementById("music");
 let btn=document.getElementById("soundToggle");
@@ -244,12 +224,10 @@ btn.innerHTML="🔇";
 }
 }
 
-/* PROFILE SYSTEM */
 let currentLang="en";
 let currentUser="";
 
 function openProfile(type){
-document.getElementById("clickSound").play();
 currentUser=type;
 currentLang="en";
 renderProfile();
@@ -261,113 +239,32 @@ function renderProfile(){
 let content=document.getElementById("profileContent");
 
 let data={
-assiri:{
-img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",
-name:"ASSIRI",
-role:"(Owner)",
-en:`A dominant leader who commands elite power with precision.
-Strategic, fearless, and always ahead.
-Respected. Feared. Admired.
-The backbone of N5BH.`,
-ar:`قائد مسيطر يمتلك قوة ونفوذ عالي.
-استراتيجي ومتقدم دائماً.
-محترم ومهيب.
-الركيزة الأساسية لـ N5BH.`,
-link:"https://www.tiktok.com/@0w.fh?is_from_webapp=1&sender_device=pc"
-},
-maliki:{
-img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",
-name:"AL-MALIKI",
-role:"(Co Owner)",
-en:`The trusted right hand of N5BH.
-A man of loyalty and strength.`,
-ar:`اليد اليمنى الموثوقة لـ N5BH.
-رجل وفي وصاحب حضور.`,
-link:"https://www.tiktok.com/@iyxu?is_from_webapp=1&sender_device=pc"
-},
-manager1:{
-img:"https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg",
-name:"#الّلْواءْ أبوظّليّيٍمْ١6.",
-role:"(Manager)",
-en:`Writer, philosopher, and former naval commander.
-Loyal and fearless.`,
-ar:`كاتب وفيلسوف وقائد بحري سابق.
-وفي وشجاع.`,
-link:"https://www.instagram.com/e01kx?igsh=NGg5aTB0bmYxZWkx&utm_source=qr"
-},
-subaii:{
-img:"https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg",
-name:"AL-SUBAII",
-role:"(Manager)",
-en:`Rose from foolishness to elite intelligence 😉.`,
-ar:`ارتقى من الغباء إلى النخبة 😉.`,
-link:"https://www.tiktok.com/@MS4wLjABAAAAvWvk0YVHWN54zg7wC-mNDemUO4cUK6UgTsi0gvXykCI77oiA-RdCtXeFnmvsb7eW?is_from_webapp=1&sender_device=pc"
-},
-tamimi:{
-img:"https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg",
-name:"Abdullah Al-Tamimi",
+
+turki:{
+img:"https://i.pinimg.com/736x/ef/75/6a/ef756a21e81d2f30888d5f1279511fbe.jpg",
+name:"TURKI AL-SAHLI",
 role:"(N5BH)",
-en:`Owner of a Lexus — power must be controlled.`,
-ar:`معي لكزس — القوة يجب التحكم بها.`,
-link:"https://www.tiktok.com/@alhussein_3?is_from_webapp=1&sender_device=pc"
-},
-firas:{
-img:"https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg",
-name:"فراس القحطاني",
-role:"(MANGER)",
-en:`Spontaneous and bold personality.`,
-ar:`شخص عفوي وجريء.`,
-link:"https://www.tiktok.com/@fohej4?_r=1&_t=ZS-940OMTpZR6l"
-},
-abukhaled:{
-img:"https://i.pinimg.com/736x/f7/46/b6/f746b6651b72a1dc5225eb823f142941.jpg",
-name:"ABU KHALED",
-role:"(MANGER)",
-en:`A stylish presence who always wears his glasses with confidence.
-Sharp minded, socially active, and naturally charismatic.
-His jokes hit perfectly and his personality brings energy wherever he goes.
-Smart, smooth, and effortlessly influential in any circle.`,
-ar:`شخص أنيق يلبس نظاراته بثقة عالية.
-ذكي واجتماعي جداً وحضوره يلفت الانتباه.
-ذباته دايم تصيب في مكانها ويضيف طاقة في أي مجلس.
-شخصية مميزة، سلس، ويأثر في اللي حوله بسهولة.`,
-link:"https://www.instagram.com/mu411k?igsh=MWVpMWtueWpycTZ0NQ=="
+en:`A classic type of person who loves TV series and coffee and wants to get married.`,
+ar:`شخص كلاسيكي يحب المسلسلات والقهوة ويريد الزواج.`,
+link:"https://www.tiktok.com/@kx.wz?_r=1&_t=ZS-940RjxIuN3n"
+}
+
 };
 
 let user=data[currentUser];
+if(!user) return;
+
 let text=currentLang==="en"?user.en:user.ar;
 
 content.innerHTML=`
-<img src="${user.img}" class="profile-img">
+<img src="${user.img}" class="profile-img" style="filter:grayscale(100%);">
 <h2>${user.name}</h2>
 <h4>${user.role}</h4>
-<p id="bioText" style="margin-top:15px;line-height:1.8;"></p>
-<button class="translate-btn" onclick="toggleLang()">Translate / ترجمة</button>
+<p style="margin-top:15px;line-height:1.8;">${text}</p>
 <div class="profile-links">
 <a href="${user.link}" target="_blank">Social Media</a>
 </div>
 `;
-
-setTimeout(()=>{typeEffect(text)},50);
-}
-
-function typeEffect(text){
-let i=0;
-let bio=document.getElementById("bioText");
-bio.innerHTML="";
-function typing(){
-if(i<text.length){
-bio.innerHTML+=text.charAt(i);
-i++;
-setTimeout(typing,15);
-}
-}
-typing();
-}
-
-function toggleLang(){
-currentLang=currentLang==="en"?"ar":"en";
-renderProfile();
 }
 
 function closeProfile(){
