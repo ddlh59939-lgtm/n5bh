@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>N5BH server </title>
+<title>N5BH</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -28,8 +28,8 @@ button{margin-top:30px;padding:12px 50px;background:transparent;border:1px solid
 button:hover{background:#fff;color:#000}
 
 /* MAIN */
-#main{display:none;opacity:0;transition:1.5s;height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column}
-.members{display:flex;gap:90px;align-items:center}
+#main{display:none;opacity:0;transition:1.5s;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.members{display:flex;gap:90px;align-items:center;margin-bottom:50px}
 .member-card{text-align:center;cursor:pointer;transition:.4s}
 .member-card img{
 width:260px;height:330px;object-fit:cover;border-radius:15px;
@@ -43,8 +43,8 @@ to{box-shadow:0 0 60px rgba(255,255,255,.6)}
 }
 .member-card:hover img{transform:scale(1.05);box-shadow:0 0 70px #fff}
 .center{transform:scale(1.1)}
+.small img{width:180px;height:220px}
 .role{opacity:.7;font-size:14px}
-.title{font-size:12px;opacity:.6}
 .blur{filter:blur(5px)}
 
 /* PROFILE PANEL */
@@ -52,7 +52,11 @@ to{box-shadow:0 0 60px rgba(255,255,255,.6)}
 #profilePanel.active{right:0}
 .profile-img{width:220px;height:280px;object-fit:cover;border-radius:12px;margin-bottom:20px;box-shadow:0 0 40px #fff}
 .close-btn{position:absolute;top:15px;left:20px;font-size:28px;cursor:pointer}
-.profile-links a{display:inline-block;margin:10px;padding:8px 15px;border:1px solid #fff;color:#fff;text-decoration:none;transition:.3s}
+.profile-links a{
+display:inline-block;margin:10px;padding:8px 15px;
+border:1px solid #fff;color:#fff;text-decoration:none;
+transition:.3s;font-size:12px
+}
 .profile-links a:hover{background:#fff;color:#000}
 .translate-btn{margin-top:10px;padding:6px 15px;font-size:12px}
 
@@ -60,15 +64,6 @@ to{box-shadow:0 0 60px rgba(255,255,255,.6)}
 .flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none}
 .shock{animation:shock .4s ease}
 @keyframes shock{0%{opacity:1}100%{opacity:0}}
-
-/* SHAKE */
-@keyframes slightShake{
-0%{transform:translateX(0)}
-25%{transform:translateX(-3px)}
-50%{transform:translateX(3px)}
-75%{transform:translateX(-2px)}
-100%{transform:translateX(0)}
-}
 </style>
 </head>
 
@@ -84,46 +79,31 @@ to{box-shadow:0 0 60px rgba(255,255,255,.6)}
 
 <canvas id="matrix"></canvas>
 
-<!-- INTRO -->
 <div id="intro">
 <div class="intro-top-link" onclick="window.open('https://discord.gg/4VuMPVrXwR','_blank')">
 Discord Server
 </div>
-
 <div class="logo">N5BH</div>
-
 <div class="warning-title">⚠ WARNING</div>
-
 <div class="warning-text">
 This website is harmless.<br>
 هذا الموقع غير ضار إنما هو فقط لعيون #N5BH
 </div>
-
 <button onclick="enterSite()">ENTER</button>
 </div>
 
-<!-- MAIN -->
 <div id="main">
+
 <div class="members">
-
-<div class="member-card" onclick="openProfile('maliki')">
-<img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg">
-<h2>AL-MALIKI</h2>
-<div class="role">(Co Owner)</div>
-<div class="title">Right Hand of N5BH</div>
-</div>
-
-<div class="member-card center" onclick="openProfile('assiri')">
-<img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
-<h2>ASSIRI</h2>
-<div class="role">(Owner)</div>
-<div class="title">The Core of N5BH</div>
-</div>
-
+<div class="member-card center" onclick="openProfile('manager')">
+<img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg">
+<h2>#الّلْواءْ أبوظّليّيٍمْ١6.</h2>
+<div class="role">(Manager)</div>
 </div>
 </div>
 
-<!-- PROFILE PANEL -->
+</div>
+
 <div id="profilePanel">
 <span class="close-btn" onclick="closeProfile()">×</span>
 <div id="profileContent"></div>
@@ -156,11 +136,9 @@ drops[i]++;
 }
 setInterval(draw,40);
 
-/* ENTER */
 function enterSite(){
 document.getElementById("flash").classList.add("shock");
 let intro=document.getElementById("intro");
-intro.style.transform="scale(1.1)";
 intro.style.opacity="0";
 setTimeout(()=>{
 intro.style.display="none";
@@ -173,64 +151,39 @@ document.body.style.overflow="auto";
 
 /* PROFILE */
 let currentLang="en";
-let currentUser="";
 
 function openProfile(type){
 document.getElementById("clickSound").play();
-currentUser=type;
-currentLang="en";
 renderProfile();
 document.getElementById("profilePanel").classList.add("active");
-document.getElementById("profilePanel").style.animation="slightShake .3s";
 document.getElementById("main").classList.add("blur");
 }
 
 function renderProfile(){
 let content=document.getElementById("profileContent");
 
-let data={
-assiri:{
-img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",
-name:"ASSIRI",
-role:"(Owner)",
-en:`A dominant leader who commands elite power with precision.
-Strategic, fearless, and always ahead.
-A visionary shaping outcomes with calculated words.
-Respected. Feared. Admired.
-The backbone of N5BH.`,
-ar:`قائد مسيطر يمتلك قوة ونفوذ عالي.
-شخص استراتيجي لا يخاف ودائماً متقدم بخطوات.
-يصنع النتائج بكلمات محسوبة.
-محترم، مهيب، ومصدر قوة لـ N5BH.`
-},
-maliki:{
-img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",
-name:"AL-MALIKI",
-role:"(Co Owner)",
-en:`The most trusted right-hand of N5BH.
-A man of honor and loyalty.
-Reliable in every situation.
-Strong presence and respected by all.
-A true pillar of the server.`,
-ar:`اليد اليمنى الموثوقة لـ N5BH.
-رجل شهم يعتمد عليه في كل وقت.
-وفيّ وصاحب كلمة.
-هيبة وحضور قوي.
-ركيزة أساسية في السيرفر.`
-}
-};
+let en=`A fierce and uncompromising demographic figure.
+A brave and bold personality who never delays decisions.
+Writer, philosopher, and former naval forces commander.
+Known by presence alone — AbuZleem, formerly AbuAnnaz.
+Loyal to friends and despises betrayal under any circumstance.`;
 
-let user=data[currentUser];
-let text=currentLang==="en"?user.en:user.ar;
+let ar=`شخص ديموغرافي قاسي ومغوار لا يحب التأجيل.
+كاتب وفيلسوف وقائد سابق في القوات البحرية.
+المعروف لا يُعرّف — أبوظليم ~ أبو عنّاز سابقاً.
+وفيّ لأصدقائه ولا يحب الغدر مهما كان السبب.`;
+
+let text=currentLang==="en"?en:ar;
 
 content.innerHTML=`
-<img src="${user.img}" class="profile-img">
-<h2>${user.name}</h2>
-<h4>${user.role}</h4>
+<img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg" class="profile-img">
+<h2>#الّلْواءْ أبوظّليّيٍمْ١6.</h2>
+<h4>(Manager)</h4>
 <p id="bioText" style="margin-top:15px;line-height:1.8;"></p>
 <button class="translate-btn" onclick="toggleLang()">Translate / ترجمة</button>
+
 <div class="profile-links">
-<a href="${currentUser==='assiri'?'https://www.tiktok.com/@0w.fh?is_from_webapp=1&sender_device=pc':'https://www.tiktok.com/@iyxu?is_from_webapp=1&sender_device=pc'}" target="_blank">TikTok</a>
+<a href="https://www.instagram.com/e01kx?igsh=NGg5aTB0bmYxZWkx&utm_source=qr" target="_blank">Instagram</a>
 </div>
 `;
 
