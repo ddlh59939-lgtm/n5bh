@@ -407,11 +407,19 @@ let autoRotate = true;
 
 function openGlobe(){
 document.getElementById("globeOverlay").classList.add("active");
+
+/* اخفاء زر القائمة */
+document.getElementById("menuBtn").style.display = "none";
+
 initGlobe();
 }
 
 function closeGlobe(){
 document.getElementById("globeOverlay").classList.remove("active");
+
+/* ارجاع زر القائمة */
+document.getElementById("menuBtn").style.display = "block";
+
 if(renderer){
 renderer.dispose();
 }
