@@ -9,6 +9,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;color:#fff;font-family:'Orbitron',sans-serif;overflow:hidden}
+
 canvas{position:fixed;top:0;left:0;z-index:0;opacity:.06}
 
 #soundToggle{
@@ -30,8 +31,15 @@ z-index:2;text-align:center
 position:absolute;top:20px;right:30px;
 cursor:pointer;color:#aaa;font-size:14px
 }
-.logo{font-size:90px;letter-spacing:15px;text-shadow:0 0 30px #fff}
-.warning-title{margin-top:25px;font-size:20px;letter-spacing:3px;animation:flashWarning 1.2s infinite}
+.logo{
+font-size:90px;letter-spacing:15px;
+text-shadow:0 0 30px #fff
+}
+.warning-title{
+margin-top:25px;font-size:20px;
+letter-spacing:3px;
+animation:flashWarning 1.2s infinite
+}
 .warning-text{margin-top:10px;font-size:14px;opacity:.9}
 @keyframes flashWarning{
 0%,100%{text-shadow:0 0 5px #fff;opacity:.6}
@@ -45,10 +53,14 @@ color:#fff;cursor:pointer
 button:hover{background:#fff;color:#000}
 
 #main{
-opacity:0;height:100vh;
-display:flex;flex-direction:column;
-justify-content:center;align-items:center;
-pointer-events:none;transition:opacity 1.2s ease;
+opacity:0;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+pointer-events:none;
+transition:opacity 1.2s ease;
 }
 
 .members{
@@ -75,7 +87,6 @@ width:430px;height:100vh;background:#111;
 transition:.5s;z-index:9999;padding:30px;overflow-y:auto
 }
 #profilePanel.active{right:0}
-
 .profile-img{
 width:220px;height:280px;
 border-radius:12px;margin-bottom:20px;
@@ -92,44 +103,12 @@ color:#fff;text-decoration:none;font-size:12px
 }
 .profile-links a:hover{background:#fff;color:#000}
 .translate-btn{margin-top:10px;padding:6px 15px;font-size:12px}
-
-/* MENU */
-#menuBtn{
-position:fixed;top:20px;right:20px;
-font-size:22px;cursor:pointer;
-z-index:999;border:1px solid #fff;
-padding:6px 12px;transition:.3s;
-display:none;
-}
-#menuBtn:hover{background:#fff;color:#000}
-
-/* GLOBE */
-#globeOverlay{
-position:fixed;inset:0;
-background:#000;
-display:flex;justify-content:center;align-items:center;
-transform:scale(0);
-transition:.5s ease;
-z-index:10000;
-}
-#globeOverlay.active{transform:scale(1)}
-#globeCanvas{width:100%;height:100%}
-#closeGlobe{
-position:absolute;top:20px;right:20px;
-font-size:25px;cursor:pointer;color:#fff;
-}
 </style>
 </head>
 
 <body>
 
 <div id="soundToggle" onclick="toggleSound()">🔊</div>
-<div id="menuBtn" onclick="openGlobe()">☰</div>
-
-<div id="globeOverlay">
-<div id="closeGlobe" onclick="closeGlobe()">✕</div>
-<canvas id="globeCanvas"></canvas>
-</div>
 
 <audio id="music" loop preload="auto">
 <source src="song.mp3" type="audio/mp3">
@@ -137,132 +116,233 @@ font-size:25px;cursor:pointer;color:#fff;
 
 <canvas id="matrix"></canvas>
 
-<!-- 🔥 البروفايلات كما هي بدون أي تغيير -->
-<!-- (تم اختصار عرضها هنا فقط في الرد لتقليل الطول، 
-لكن عندك تبقى نفس البروفايلات اللي أرسلتها بدون حذف حرف واحد) -->
+<div id="intro">
+<div class="intro-top-link"
+onclick="window.open('https://discord.gg/4VuMPVrXwR','_blank')">
+Discord Server
+</div>
+<div class="logo">N5BH</div>
+<div class="warning-title">⚠ WARNING</div>
+<div class="warning-text">
+This website is harmless.<br>
+هذا الموقع غير ضار إنما هو فقط لعيون #N5BH
+</div>
+<button onclick="enterSite()">ENTER</button>
+</div>
+
+<div id="main">
+<div class="members">
+
+<div class="member-card" onclick="openProfile('assiri')">
+<img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
+<h3>ASSIRI</h3>
+<div class="role">(Owner)</div>
+</div>
+
+<div class="member-card" onclick="openProfile('maliki')">
+<img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg">
+<h3>AL-MALIKI</h3>
+<div class="role">(Co Owner)</div>
+</div>
+
+<div class="member-card" onclick="openProfile('manager1')">
+<img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg">
+<h3>#الّلْواءْ أبوظّليّيٍمْ١6.</h3>
+<div class="role">(Manager)</div>
+</div>
+
+<div class="member-card" onclick="openProfile('subaii')">
+<img src="https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg">
+<h3>AL-SUBAII</h3>
+<div class="role">(Manager)</div>
+</div>
+
+<div class="member-card" onclick="openProfile('tamimi')">
+<img src="https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg">
+<h3>Abdullah Al-Tamimi</h3>
+<div class="role">(N5BH)</div>
+</div>
+
+<div class="member-card" onclick="openProfile('firas')">
+<img src="https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg">
+<h3>FAHAD BIN FASLA</h3>
+<div class="role">(MANGER)</div>
+</div>
+
+<div class="member-card" onclick="openProfile('abukhaled')">
+<img src="https://i.pinimg.com/736x/f7/46/b6/f746b6651b72a1dc5225eb823f142941.jpg" style="filter:grayscale(100%);">
+<h3>ABU KHALED</h3>
+<div class="role">(MANGER)</div>
+</div>
+
+<div class="member-card" onclick="openProfile('turki')">
+<img src="https://i.pinimg.com/736x/ef/75/6a/ef756a21e81d2f30888d5f1279511fbe.jpg">
+<h3>TURKI AL-SAHLI</h3>
+<div class="role">(N5BH)</div>
+</div>
+
+</div>
+</div>
+
+<div id="profilePanel">
+<span class="close-btn" onclick="closeProfile()">×</span>
+<div id="profileContent"></div>
+</div>
 
 <script>
-/* نفس سكربت البروفايلات عندك بدون أي تعديل */
-</script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-<script>
-
-let scene, camera, renderer, globe;
-let isGlobeInitialized=false;
-
-function openGlobe(){
-document.getElementById("globeOverlay").classList.add("active");
-document.getElementById("menuBtn").style.display="none";
-if(!isGlobeInitialized){
-initGlobe();
-isGlobeInitialized=true;
-}
+function enterSite(){
+document.getElementById("intro").style.display="none";
+let main=document.getElementById("main");
+main.style.opacity="1";
+main.style.pointerEvents="auto";
+let audio=document.getElementById("music");
+audio.volume=0.3;
+audio.play().catch(()=>{});
 }
 
-function closeGlobe(){
-document.getElementById("globeOverlay").classList.remove("active");
-document.getElementById("menuBtn").style.display="block";
-}
-
-function initGlobe(){
-
-const canvas=document.getElementById("globeCanvas");
-
-scene=new THREE.Scene();
-
-camera=new THREE.PerspectiveCamera(
-75,
-window.innerWidth/window.innerHeight,
-0.1,
-1000
-);
-
-renderer=new THREE.WebGLRenderer({
-canvas:canvas,
-antialias:true
-});
-
-renderer.setSize(window.innerWidth,window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor(0x000000,1);
-
-camera.position.z=8;
-
-const geometry=new THREE.SphereGeometry(5,64,64);
-const textureLoader=new THREE.TextureLoader();
-
-const earthTexture=textureLoader.load(
-"https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg",
-function(texture){
-
-const tempCanvas=document.createElement("canvas");
-const ctx=tempCanvas.getContext("2d");
-
-tempCanvas.width=texture.image.width;
-tempCanvas.height=texture.image.height;
-
-ctx.drawImage(texture.image,0,0);
-
-const imgData=ctx.getImageData(0,0,tempCanvas.width,tempCanvas.height);
-const data=imgData.data;
-
-for(let i=0;i<data.length;i+=4){
-const brightness=(data[i]+data[i+1]+data[i+2])/3;
-if(brightness>110){
-data[i]=data[i+1]=data[i+2]=255;
+function toggleSound(){
+let audio=document.getElementById("music");
+let btn=document.getElementById("soundToggle");
+if(audio.volume===0){
+audio.volume=0.3;
+btn.innerHTML="🔊";
 }else{
-data[i]=data[i+1]=data[i+2]=0;
+audio.volume=0;
+btn.innerHTML="🔇";
 }
 }
 
-ctx.putImageData(imgData,0,0);
-texture.image=tempCanvas;
-texture.needsUpdate=true;
-});
+let currentLang="en";
+let currentUser="";
 
-const material=new THREE.MeshPhongMaterial({
-map:earthTexture,
-shininess:100
-});
-
-globe=new THREE.Mesh(geometry,material);
-scene.add(globe);
-
-const light=new THREE.DirectionalLight(0xffffff,2);
-light.position.set(5,5,5);
-scene.add(light);
-
-const ambient=new THREE.AmbientLight(0xffffff,0.8);
-scene.add(ambient);
-
-animate();
+function openProfile(type){
+currentUser=type;
+currentLang="en";
+renderProfile();
+document.getElementById("profilePanel").classList.add("active");
+document.getElementById("main").classList.add("blur");
 }
 
-function animate(){
-requestAnimationFrame(animate);
-if(globe){globe.rotation.y+=0.002;}
-renderer.render(scene,camera);
+function renderProfile(){
+let content=document.getElementById("profileContent");
+
+let data={
+
+assiri:{
+img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",
+name:"ASSIRI",
+role:"(Owner)",
+en:`A dominant leader who commands elite power with precision.
+Strategic, fearless, and always ahead.
+Respected. Feared. Admired.
+The backbone of N5BH.`,
+ar:`قائد مسيطر يمتلك قوة ونفوذ عالي.
+استراتيجي ومتقدم دائماً.
+محترم ومهيب.
+الركيزة الأساسية لـ N5BH.`,
+link:"https://www.tiktok.com/@0w.fh"
+},
+
+maliki:{
+img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",
+name:"AL-MALIKI",
+role:"(Co Owner)",
+en:`The trusted right hand of N5BH.
+A man of loyalty and strength.`,
+ar:`اليد اليمنى الموثوقة لـ N5BH.
+رجل وفي وصاحب حضور.`,
+link:"https://www.tiktok.com/@iyxu"
+},
+
+manager1:{
+img:"https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg",
+name:"#الّلْواءْ أبوظّليّيٍمْ١6.",
+role:"(Manager)",
+en:`Writer, philosopher, and former naval commander.
+Loyal and fearless.`,
+ar:`كاتب وفيلسوف وقائد بحري سابق.
+وفي وشجاع.`,
+link:"https://www.instagram.com/e01kx"
+},
+
+subaii:{
+img:"https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg",
+name:"AL-SUBAII",
+role:"(Manager)",
+en:`Rose from foolishness to elite intelligence 😉.`,
+ar:`ارتقى من الغباء إلى النخبة 😉.`,
+link:"https://www.tiktok.com/@MS4wLjABAAAAvWvk0YVHWN54zg7wC-mNDemUO4cUK6UgTsi0gvXykCI77oiA-RdCtXeFnmvsb7eW"
+},
+
+tamimi:{
+img:"https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg",
+name:"Abdullah Al-Tamimi",
+role:"(N5BH)",
+en:`Owner of a Lexus — power must be controlled.`,
+ar:`معي لكزس — القوة يجب التحكم بها.`,
+link:"https://www.tiktok.com/@alhussein_3"
+},
+
+firas:{
+img:"https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg",
+name:"FAHAD BIN FASLA",
+role:"(MANGER)",
+en:`Fahd bin Fasla is a comedic, democratic figure who combines intelligence and foolishness. He enjoys a good social standing, having formed important relationships. He is also a rare individual from the planet Al-Dhari.`,
+ar:`فهد بن فصلة شخصية كوميدية وديمقراطية تجمع بين الذكاء والحماقة. يتمتع بمكانة اجتماعية مرموقة، إذ كوّن علاقات مهمة. وهو أيضاً فرد نادر من كوكب الذري.`,
+link:"https://www.tiktok.com/@fohej4"
+},
+
+abukhaled:{
+img:"https://i.pinimg.com/736x/f7/46/b6/f746b6651b72a1dc5225eb823f142941.jpg",
+name:"ABU KHALED",
+role:"(MANGER)",
+en:`A stylish presence who always wears his glasses with confidence.
+Sharp minded, socially active, and naturally charismatic.
+His jokes hit perfectly and his personality brings energy wherever he goes.
+Smart, smooth, and effortlessly influential in any circle.`,
+ar:`شخص أنيق يلبس نظاراته بثقة عالية.
+ذكي واجتماعي جداً وحضوره يلفت الانتباه.
+ذباته دايم تصيب في مكانها ويضيف طاقة في أي مجلس.
+شخصية مميزة، سلس، ويأثر في اللي حوله بسهولة.`,
+link:"https://www.instagram.com/mu411k"
+},
+
+turki:{
+img:"https://i.pinimg.com/736x/ef/75/6a/ef756a21e81d2f30888d5f1279511fbe.jpg",
+name:"TURKI AL-SAHLI",
+role:"(N5BH)",
+en:`A classic type of person who loves TV series and coffee and wants to get married.`,
+ar:`شخص كلاسيكي يحب المسلسلات والقهوة ويريد الزواج.`,
+link:"https://www.tiktok.com/@kx.wz"
 }
 
-let isDragging=false;
-document.addEventListener("mousedown",e=>{if(e.button===0){isDragging=true;}});
-document.addEventListener("mouseup",()=>{isDragging=false;});
-document.addEventListener("mousemove",e=>{
-if(isDragging&&globe){
-globe.rotation.y+=e.movementX*0.005;
-globe.rotation.x+=e.movementY*0.005;
-}
-});
+};
 
-window.addEventListener("resize",()=>{
-if(camera&&renderer){
-camera.aspect=window.innerWidth/window.innerHeight;
-camera.updateProjectionMatrix();
-renderer.setSize(window.innerWidth,window.innerHeight);
+let user=data[currentUser];
+let text=currentLang==="en"?user.en:user.ar;
+
+content.innerHTML=`
+<img src="${user.img}" class="profile-img">
+<h2>${user.name}</h2>
+<h4>${user.role}</h4>
+<p style="margin-top:15px;line-height:1.8;">${text}</p>
+<button class="translate-btn" onclick="toggleLang()">Translate / ترجمة</button>
+<div class="profile-links">
+<a href="${user.link}" target="_blank">Social Media</a>
+</div>
+`;
 }
-});
+
+function toggleLang(){
+currentLang=currentLang==="en"?"ar":"en";
+renderProfile();
+}
+
+function closeProfile(){
+document.getElementById("profilePanel").classList.remove("active");
+document.getElementById("main").classList.remove("blur");
+}
 
 </script>
 
