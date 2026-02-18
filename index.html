@@ -103,12 +103,66 @@ color:#fff;text-decoration:none;font-size:12px
 }
 .profile-links a:hover{background:#fff;color:#000}
 .translate-btn{margin-top:10px;padding:6px 15px;font-size:12px}
+/* MENU BUTTON */
+#menuBtn{
+position:fixed;
+top:20px;
+right:20px;
+font-size:22px;
+cursor:pointer;
+z-index:9999;
+border:1px solid #fff;
+padding:6px 12px;
+transition:.3s;
+}
+#menuBtn:hover{
+background:#fff;
+color:#000;
+}
+
+/* GLOBE OVERLAY */
+#globeOverlay{
+position:fixed;
+inset:0;
+background:#000;
+display:flex;
+justify-content:center;
+align-items:center;
+transform:scale(0);
+transition:.5s ease;
+z-index:9998;
+}
+#globeOverlay.active{
+transform:scale(1);
+}
+
+#globeCanvas{
+width:100%;
+height:100%;
+}
+
+#closeGlobe{
+position:absolute;
+top:20px;
+right:20px;
+font-size:25px;
+cursor:pointer;
+color:#fff;
+}
 </style>
 </head>
 
 <body>
 
 <div id="soundToggle" onclick="toggleSound()">🔊</div>
+<!-- MENU BUTTON -->
+<div id="menuBtn" onclick="openGlobe()">☰</div>
+
+<!-- GLOBE OVERLAY -->
+<div id="globeOverlay">
+<canvas id="globeCanvas"></canvas>
+<span id="closeGlobe" onclick="closeGlobe()">✕</span>
+</div>
 
 <audio id="music" loop preload="auto">
 <source src="song.mp3" type="audio/mp3">
@@ -343,6 +397,76 @@ function closeProfile(){
 document.getElementById("profilePanel").classList.remove("active");
 document.getElementById("main").classList.remove("blur");
 }
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+
+let scene, camera, renderer, globe;
+let autoRotate = true;
+
+function openGlobe(){
+document.getElementById("globeOverlay").classList.add("active");
+initGlobe();
+}
+
+function closeGlobe(){
+document.getElementById("globeOverlay").classList.remove("active");
+if(renderer){
+renderer.dispose();
+}
+}
+
+function initGlobe(){
+
+scene = new THREE.Scene();
+
+camera = new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+);
+
+renderer = new THREE.WebGLRenderer({
+canvas:document.getElementById("globeCanvas"),
+alpha:true
+});
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+const geometry = new THREE.SphereGeometry(2, 64, 64);
+
+const material = new THREE.MeshBasicMaterial({
+color:0xffffff,
+wireframe:true
+});
+
+globe = new THREE.Mesh(geometry, material);
+scene.add(globe);
+
+camera.position.z = 5;
+
+animate();
+}
+
+function animate(){
+requestAnimationFrame(animate);
+
+if(globe && autoRotate){
+globe.rotation.y += 0.003;
+}
+
+renderer.render(scene, camera);
+}
+
+/* تحريك بالماوس */
+document.addEventListener("mousemove", function(e){
+if(globe){
+globe.rotation.y = e.clientX * 0.002;
+globe.rotation.x = e.clientY * 0.002;
+}
+});
 
 </script>
 
