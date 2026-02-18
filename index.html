@@ -110,7 +110,7 @@ top:20px;
 right:20px;
 font-size:22px;
 cursor:pointer;
-z-index:9999;
+z-index:999;
 border:1px solid #fff;
 padding:6px 12px;
 transition:.3s;
@@ -130,7 +130,7 @@ justify-content:center;
 align-items:center;
 transform:scale(0);
 transition:.5s ease;
-z-index:9998;
+z-index:10000;
 }
 #globeOverlay.active{
 transform:scale(1);
@@ -407,22 +407,12 @@ let autoRotate = true;
 
 function openGlobe(){
 document.getElementById("globeOverlay").classList.add("active");
-
-/* اخفاء زر القائمة */
 document.getElementById("menuBtn").style.display = "none";
-
-initGlobe();
 }
 
 function closeGlobe(){
 document.getElementById("globeOverlay").classList.remove("active");
-
-/* ارجاع زر القائمة */
 document.getElementById("menuBtn").style.display = "block";
-
-if(renderer){
-renderer.dispose();
-}
 }
 
 function initGlobe(){
@@ -445,11 +435,19 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 const geometry = new THREE.SphereGeometry(2, 64, 64);
 
-const material = new THREE.MeshBasicMaterial({
+const material = new THREE.MeshStandardMaterial({
 color:0xffffff,
-wireframe:true
+roughness:0.5,
+metalness:0.7
 });
+const light = new THREE.PointLight(0xffffff,1);
+light.position.set(5,5,5);
+scene.add(light);
 
+const ambient = new THREE.AmbientLight(0xffffff,0.3);
+scene.add(ambient);
+
+  
 globe = new THREE.Mesh(geometry, material);
 scene.add(globe);
 
