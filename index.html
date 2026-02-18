@@ -10,8 +10,6 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;color:#fff;font-family:'Orbitron',sans-serif;overflow:hidden}
 
-canvas{position:fixed;top:0;left:0;z-index:0;opacity:.06}
-
 #soundToggle{
 position:fixed;top:20px;left:20px;
 background:rgba(0,0,0,0.6);
@@ -57,19 +55,24 @@ opacity:0;
 height:100vh;
 display:flex;
 flex-direction:column;
-justify-content:center;
 align-items:center;
 pointer-events:none;
 transition:opacity 1.2s ease;
+overflow-y:auto;
+padding:60px 0;
 }
 
-.members{
-display:flex;gap:50px;flex-wrap:wrap;
-justify-content:center;margin-bottom:40px
+.section{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:40px;
+margin-bottom:60px;
+width:100%;
 }
+
 .member-card{text-align:center;cursor:pointer}
 .member-card img{
-width:280px;height:350px;
 object-fit:cover;border-radius:15px;
 box-shadow:0 0 40px rgba(255,255,255,.4);
 transition:.3s
@@ -80,6 +83,11 @@ box-shadow:0 0 70px #fff
 }
 .role{opacity:.7;font-size:14px}
 .blur{filter:blur(5px)}
+
+.owner img{width:360px;height:420px}
+.co img{width:300px;height:360px}
+.manager img{width:240px;height:320px}
+.elite img{width:200px;height:280px}
 
 #profilePanel{
 position:fixed;top:0;right:-100%;
@@ -114,8 +122,6 @@ color:#fff;text-decoration:none;font-size:12px
 <source src="song.mp3" type="audio/mp3">
 </audio>
 
-<canvas id="matrix"></canvas>
-
 <div id="intro">
 <div class="intro-top-link"
 onclick="window.open('https://discord.gg/4VuMPVrXwR','_blank')">
@@ -131,66 +137,70 @@ This website is harmless.<br>
 </div>
 
 <div id="main">
-<div class="members">
 
-<div class="member-card" onclick="openProfile('assiri')">
+<!-- Owner -->
+<div class="section">
+<div class="member-card owner" onclick="openProfile('assiri')">
 <img src="https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg">
 <h3>ASSIRI</h3>
 <div class="role">(Owner)</div>
 </div>
+</div>
 
-<div class="member-card" onclick="openProfile('maliki')">
+<!-- Co Owner -->
+<div class="section">
+<div class="member-card co" onclick="openProfile('maliki')">
 <img src="https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg">
 <h3>AL-MALIKI</h3>
 <div class="role">(Co Owner)</div>
 </div>
+</div>
 
-<div class="member-card" onclick="openProfile('manager1')">
+<!-- Managers -->
+<div class="section">
+<div class="member-card manager" onclick="openProfile('manager1')">
 <img src="https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg">
 <h3>#الّلْواءْ أبوظّليّيٍمْ١6.</h3>
 <div class="role">(Manager)</div>
 </div>
 
-<div class="member-card" onclick="openProfile('subaii')">
+<div class="member-card manager" onclick="openProfile('subaii')">
 <img src="https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg">
 <h3>AL-SUBAII</h3>
 <div class="role">(Manager)</div>
 </div>
 
-<div class="member-card" onclick="openProfile('tamimi')">
+<div class="member-card manager" onclick="openProfile('firas')">
+<img src="https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg">
+<h3>FAHAD BIN FASLA</h3>
+<div class="role">(MANGER)</div>
+</div>
+</div>
+
+<!-- N5BH -->
+<div class="section">
+<div class="member-card elite" onclick="openProfile('tamimi')">
 <img src="https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg">
 <h3>Abdullah Al-Tamimi</h3>
 <div class="role">(N5BH)</div>
 </div>
 
-<div class="member-card" onclick="openProfile('firas')">
-<img src="https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg">
-<h3>FAHAD BIN FASLA</h3>
-<div class="role">(MANGER)</div>
-</div>
-
-<div class="member-card" onclick="openProfile('abukhaled')">
-<img src="https://i.pinimg.com/736x/f7/46/b6/f746b6651b72a1dc5225eb823f142941.jpg" style="filter:grayscale(100%);">
-<h3>ABU KHALED</h3>
-<div class="role">(MANGER)</div>
-</div>
-
-<div class="member-card" onclick="openProfile('turki')">
+<div class="member-card elite" onclick="openProfile('turki')">
 <img src="https://i.pinimg.com/736x/ef/75/6a/ef756a21e81d2f30888d5f1279511fbe.jpg">
 <h3>TURKI AL-SAHLI</h3>
 <div class="role">(N5BH)</div>
 </div>
-
-</div>
 </div>
 
+</div>
+
+<!-- PROFILE PANEL -->
 <div id="profilePanel">
 <span class="close-btn" onclick="closeProfile()">×</span>
 <div id="profileContent"></div>
 </div>
 
 <script>
-
 function enterSite(){
 document.getElementById("intro").style.display="none";
 let main=document.getElementById("main");
@@ -213,6 +223,8 @@ btn.innerHTML="🔇";
 }
 }
 
+/* ====== نفس نظام البروفايلات القديم ====== */
+
 let currentLang="en";
 let currentUser="";
 
@@ -228,7 +240,6 @@ function renderProfile(){
 let content=document.getElementById("profileContent");
 
 let data={
-
 assiri:{
 img:"https://i.pinimg.com/736x/0b/79/e5/0b79e50a36b6b5eaf0a1fdaec4f1c3b5.jpg",
 name:"ASSIRI",
@@ -243,7 +254,6 @@ ar:`قائد مسيطر يمتلك قوة ونفوذ عالي.
 الركيزة الأساسية لـ N5BH.`,
 link:"https://www.tiktok.com/@0w.fh"
 },
-
 maliki:{
 img:"https://i.pinimg.com/736x/b0/bc/e7/b0bce7439bae67b9f77a73fc023974ac.jpg",
 name:"AL-MALIKI",
@@ -254,7 +264,6 @@ ar:`اليد اليمنى الموثوقة لـ N5BH.
 رجل وفي وصاحب حضور.`,
 link:"https://www.tiktok.com/@iyxu"
 },
-
 manager1:{
 img:"https://i.pinimg.com/736x/7d/ed/21/7ded2187d16ea004824fbd0d4d5c66b4.jpg",
 name:"#الّلْواءْ أبوظّليّيٍمْ١6.",
@@ -265,7 +274,6 @@ ar:`كاتب وفيلسوف وقائد بحري سابق.
 وفي وشجاع.`,
 link:"https://www.instagram.com/e01kx"
 },
-
 subaii:{
 img:"https://i.pinimg.com/1200x/05/c0/d7/05c0d7def317072cde6c21357bd6c796.jpg",
 name:"AL-SUBAII",
@@ -274,7 +282,6 @@ en:`Rose from foolishness to elite intelligence 😉.`,
 ar:`ارتقى من الغباء إلى النخبة 😉.`,
 link:"https://www.tiktok.com/@MS4wLjABAAAAvWvk0YVHWN54zg7wC-mNDemUO4cUK6UgTsi0gvXykCI77oiA-RdCtXeFnmvsb7eW"
 },
-
 tamimi:{
 img:"https://i.pinimg.com/736x/cc/ea/ae/cceaae50acc90cce023970c7bf7bb9bc.jpg",
 name:"Abdullah Al-Tamimi",
@@ -283,31 +290,14 @@ en:`Owner of a Lexus — power must be controlled.`,
 ar:`معي لكزس — القوة يجب التحكم بها.`,
 link:"https://www.tiktok.com/@alhussein_3"
 },
-
 firas:{
 img:"https://i.pinimg.com/736x/db/c0/3c/dbc03c470a5ba40061442ef05f27a2ab.jpg",
 name:"FAHAD BIN FASLA",
 role:"(MANGER)",
-en:`Fahd bin Fasla is a comedic, democratic figure who combines intelligence and foolishness. He enjoys a good social standing, having formed important relationships. He is also a rare individual from the planet Al-Dhari.`,
-ar:`فهد بن فصلة شخصية كوميدية وديمقراطية تجمع بين الذكاء والحماقة. يتمتع بمكانة اجتماعية مرموقة، إذ كوّن علاقات مهمة. وهو أيضاً فرد نادر من كوكب الذري.`,
+en:`Fahd bin Fasla is a comedic, democratic figure who combines intelligence and foolishness. He enjoys a good social standing.`,
+ar:`فهد بن فصلة شخصية كوميدية وديمقراطية تجمع بين الذكاء والحماقة.`,
 link:"https://www.tiktok.com/@fohej4"
 },
-
-abukhaled:{
-img:"https://i.pinimg.com/736x/f7/46/b6/f746b6651b72a1dc5225eb823f142941.jpg",
-name:"ABU KHALED",
-role:"(MANGER)",
-en:`A stylish presence who always wears his glasses with confidence.
-Sharp minded, socially active, and naturally charismatic.
-His jokes hit perfectly and his personality brings energy wherever he goes.
-Smart, smooth, and effortlessly influential in any circle.`,
-ar:`شخص أنيق يلبس نظاراته بثقة عالية.
-ذكي واجتماعي جداً وحضوره يلفت الانتباه.
-ذباته دايم تصيب في مكانها ويضيف طاقة في أي مجلس.
-شخصية مميزة، سلس، ويأثر في اللي حوله بسهولة.`,
-link:"https://www.instagram.com/mu411k"
-},
-
 turki:{
 img:"https://i.pinimg.com/736x/ef/75/6a/ef756a21e81d2f30888d5f1279511fbe.jpg",
 name:"TURKI AL-SAHLI",
@@ -316,7 +306,6 @@ en:`A classic type of person who loves TV series and coffee and wants to get mar
 ar:`شخص كلاسيكي يحب المسلسلات والقهوة ويريد الزواج.`,
 link:"https://www.tiktok.com/@kx.wz"
 }
-
 };
 
 let user=data[currentUser];
@@ -343,7 +332,6 @@ function closeProfile(){
 document.getElementById("profilePanel").classList.remove("active");
 document.getElementById("main").classList.remove("blur");
 }
-
 </script>
 
 </body>
