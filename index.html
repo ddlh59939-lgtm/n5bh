@@ -417,7 +417,11 @@ document.getElementById("main").classList.remove("blur");
 
 </script>
 
-    function openMini(){
+<script>
+
+/* ===== MINI GAMES SYSTEM ===== */
+
+function openMini(){
 document.getElementById("miniPanel").classList.add("active");
 document.getElementById("music").pause();
 }
@@ -432,10 +436,9 @@ document.getElementById("gameArea").innerHTML="";
 function reactionGame(){
 let area=document.getElementById("gameArea");
 area.innerHTML="انتظر التحول للأخضر...";
-
 setTimeout(()=>{
 area.innerHTML="<button onclick='reactionResult()' style='padding:40px;background:green;border:none;color:#fff;'>اضغط الآن</button>";
-},Math.random()*3000+2000);
+},2000);
 }
 function reactionResult(){
 let time=Math.floor(Math.random()*200+100);
@@ -446,7 +449,8 @@ document.getElementById("gameArea").innerHTML="سرعة رد فعلك: "+time+" 
 function clickGame(){
 let count=0;
 let area=document.getElementById("gameArea");
-area.innerHTML="<button onclick='count++'>اضغط بسرعة!</button><p id='timer'>5</p>";
+area.innerHTML="<button id='clickBtn'>اضغط بسرعة!</button><p id='timer'>5</p>";
+document.getElementById("clickBtn").onclick=function(){count++;}
 let t=5;
 let interval=setInterval(()=>{
 t--;
@@ -460,8 +464,7 @@ area.innerHTML="عدد الضغطات: "+count;
 
 /* GAME 3 */
 function aimGame(){
-let area=document.getElementById("gameArea");
-area.innerHTML="🎯 اضغط الهدف!";
+document.getElementById("gameArea").innerHTML="🎯 قريبًا نسخة احترافية";
 }
 
 /* GAME 4 */
@@ -490,6 +493,7 @@ document.getElementById("gameArea").innerHTML="✖ ACCESS DENIED";
 }
 }
 
+</script>
   
 </body>
 </html>
