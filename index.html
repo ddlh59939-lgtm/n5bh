@@ -114,6 +114,7 @@ z-index:999;
 border:1px solid #fff;
 padding:6px 12px;
 transition:.3s;
+display:none; /* 🔥 مخفي بالبداية */
 }
 #menuBtn:hover{
 background:#fff;
@@ -247,11 +248,16 @@ This website is harmless.<br>
 
 function enterSite(){
 document.getElementById("intro").style.display="none";
+
 let main=document.getElementById("main");
 main.style.opacity="1";
 main.style.pointerEvents="auto";
+
+/* 🔥 هنا يظهر زر القائمة */
+document.getElementById("menuBtn").style.display="block";
+
 let audio=document.getElementById("music");
-audio.volume=0.3; // 🔥 الصوت صار أهدأ
+audio.volume=0.3;
 audio.play().catch(()=>{});
 }
 
@@ -400,22 +406,30 @@ document.getElementById("main").classList.remove("blur");
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script>
+
+<script>
 
 let scene, camera, renderer, globe;
-let autoRotate = true;
+let isGlobeInitialized = false;
 
 function openGlobe(){
 document.getElementById("globeOverlay").classList.add("active");
-document.getElementById("menuBtn").style.display = "none";
+document.getElementById("menuBtn").style.display="none";
+
+if(!isGlobeInitialized){
+initGlobe();
+isGlobeInitialized = true;
+}
 }
 
 function closeGlobe(){
 document.getElementById("globeOverlay").classList.remove("active");
-document.getElementById("menuBtn").style.display = "block";
+document.getElementById("menuBtn").style.display="block";
 }
 
 function initGlobe(){
+
+const canvas = document.getElementById("globeCanvas");
 
 scene = new THREE.Scene();
 
@@ -427,11 +441,12 @@ window.innerWidth/window.innerHeight,
 );
 
 renderer = new THREE.WebGLRenderer({
-canvas:document.getElementById("globeCanvas"),
-alpha:true
+canvas: canvas,
+antialias:true
 });
 
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
 
 const geometry = new THREE.SphereGeometry(2, 64, 64);
 
@@ -440,16 +455,16 @@ color:0xffffff,
 roughness:0.5,
 metalness:0.7
 });
-const light = new THREE.PointLight(0xffffff,1);
+
+globe = new THREE.Mesh(geometry, material);
+scene.add(globe);
+
+const light = new THREE.PointLight(0xffffff, 1.2);
 light.position.set(5,5,5);
 scene.add(light);
 
-const ambient = new THREE.AmbientLight(0xffffff,0.3);
+const ambient = new THREE.AmbientLight(0xffffff, 0.4);
 scene.add(ambient);
-
-  
-globe = new THREE.Mesh(geometry, material);
-scene.add(globe);
 
 camera.position.z = 5;
 
@@ -459,18 +474,39 @@ animate();
 function animate(){
 requestAnimationFrame(animate);
 
-if(globe && autoRotate){
-globe.rotation.y += 0.003;
+if(globe){
+globe.rotation.y += 0.002;
 }
 
 renderer.render(scene, camera);
 }
 
-/* تحريك بالماوس */
+/* تحريك بالزر الأيسر فقط */
+let isDragging = false;
+
+document.addEventListener("mousedown", function(e){
+if(e.button === 0){
+isDragging = true;
+}
+});
+
+document.addEventListener("mouseup", function(){
+isDragging = false;
+});
+
 document.addEventListener("mousemove", function(e){
-if(globe){
-globe.rotation.y = e.clientX * 0.002;
-globe.rotation.x = e.clientY * 0.002;
+if(isDragging && globe){
+globe.rotation.y += e.movementX * 0.005;
+globe.rotation.x += e.movementY * 0.005;
+}
+});
+
+/* إصلاح مشكلة المقاس عند تغيير حجم الشاشة */
+window.addEventListener("resize", function(){
+if(camera && renderer){
+camera.aspect = window.innerWidth/window.innerHeight;
+camera.updateProjectionMatrix();
+renderer.setSize(window.innerWidth, window.innerHeight);
 }
 });
 
