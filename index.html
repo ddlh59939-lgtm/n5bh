@@ -111,76 +111,10 @@ color:#fff;text-decoration:none;font-size:12px
 }
 .profile-links a:hover{background:#fff;color:#000}
 .translate-btn{margin-top:10px;padding:6px 15px;font-size:12px}
-
-  /* MINI BUTTON */
-#miniBtn{
-position:fixed;
-bottom:25px;
-right:25px;
-padding:10px 18px;
-border:1px solid #fff;
-cursor:pointer;
-z-index:9999;
-transition:.3s;
-}
-#miniBtn:hover{background:#fff;color:#000}
-
-/* MINI PANEL */
-#miniPanel{
-position:fixed;
-inset:0;
-background:#000;
-display:none;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-z-index:10000;
-text-align:center;
-}
-#miniPanel.active{display:flex}
-
-#closeMini{
-position:absolute;
-top:20px;
-right:30px;
-cursor:pointer;
-font-size:22px;
-}
-
-.miniGameBtn{
-margin:10px;
-padding:10px 25px;
-border:1px solid #fff;
-cursor:pointer;
-}
-.miniGameBtn:hover{background:#fff;color:#000}
-
-#gameArea{margin-top:20px}
 </style>
 </head>
 
 <body>
-
-  <div id="profilePanel">
-
-    <!-- MINI GAMES BUTTON -->
-<div id="miniBtn" onclick="openMini()">🎮 MINI GAMES</div>
-
-<!-- MINI GAMES PANEL -->
-<div id="miniPanel">
-  <div id="closeMini" onclick="closeMini()">✕</div>
-  <h2>MINI GAMES</h2>
-
-  <div id="gameMenu">
-    <div class="miniGameBtn" onclick="reactionGame()">⚡ Reaction Test</div>
-    <div class="miniGameBtn" onclick="clickGame()">⏱ Click Speed</div>
-    <div class="miniGameBtn" onclick="aimGame()">🎯 Aim Hit</div>
-    <div class="miniGameBtn" onclick="guessGame()">🔢 Guess Code</div>
-    <div class="miniGameBtn" onclick="matrixGame()">🟩 Matrix Hacker</div>
-  </div>
-
-  <div id="gameArea"></div>
-</div>
 
 <div id="soundToggle" onclick="toggleSound()">🔊</div>
 
@@ -417,83 +351,5 @@ document.getElementById("main").classList.remove("blur");
 
 </script>
 
-<script>
-
-/* ===== MINI GAMES SYSTEM ===== */
-
-function openMini(){
-document.getElementById("miniPanel").classList.add("active");
-document.getElementById("music").pause();
-}
-
-function closeMini(){
-document.getElementById("miniPanel").classList.remove("active");
-document.getElementById("music").play();
-document.getElementById("gameArea").innerHTML="";
-}
-
-/* GAME 1 */
-function reactionGame(){
-let area=document.getElementById("gameArea");
-area.innerHTML="انتظر التحول للأخضر...";
-setTimeout(()=>{
-area.innerHTML="<button onclick='reactionResult()' style='padding:40px;background:green;border:none;color:#fff;'>اضغط الآن</button>";
-},2000);
-}
-function reactionResult(){
-let time=Math.floor(Math.random()*200+100);
-document.getElementById("gameArea").innerHTML="سرعة رد فعلك: "+time+" ms";
-}
-
-/* GAME 2 */
-function clickGame(){
-let count=0;
-let area=document.getElementById("gameArea");
-area.innerHTML="<button id='clickBtn'>اضغط بسرعة!</button><p id='timer'>5</p>";
-document.getElementById("clickBtn").onclick=function(){count++;}
-let t=5;
-let interval=setInterval(()=>{
-t--;
-document.getElementById("timer").innerText=t;
-if(t<=0){
-clearInterval(interval);
-area.innerHTML="عدد الضغطات: "+count;
-}
-},1000);
-}
-
-/* GAME 3 */
-function aimGame(){
-document.getElementById("gameArea").innerHTML="🎯 قريبًا نسخة احترافية";
-}
-
-/* GAME 4 */
-function guessGame(){
-let number=Math.floor(Math.random()*10)+1;
-let guess=prompt("خمن رقم من 1 الى 10");
-if(parseInt(guess)===number){
-document.getElementById("gameArea").innerHTML="✔ صح!";
-}else{
-document.getElementById("gameArea").innerHTML="✖ خطأ! الرقم كان "+number;
-}
-}
-
-/* GAME 5 MATRIX */
-function matrixGame(){
-let area=document.getElementById("gameArea");
-let code="N5BH-"+Math.floor(Math.random()*9999);
-area.innerHTML="اكتب الكود خلال 7 ثواني:<br><b>"+code+"</b><br><input id='matrixInput'><button onclick='checkMatrix(\""+code+"\")'>ENTER</button>";
-}
-function checkMatrix(code){
-let val=document.getElementById("matrixInput").value;
-if(val===code){
-document.getElementById("gameArea").innerHTML="✔ ACCESS GRANTED";
-}else{
-document.getElementById("gameArea").innerHTML="✖ ACCESS DENIED";
-}
-}
-
-</script>
-  
 </body>
 </html>
